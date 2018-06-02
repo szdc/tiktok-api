@@ -1,0 +1,11 @@
+.idea/
+
+# Logs
+logs/
+*.log
+
+# Dependencies
+node_modules/
+
+# Compiled files
+lib/

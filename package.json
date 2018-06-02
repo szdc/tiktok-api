@@ -1,0 +1,35 @@
+{
+  "name": "musically-api",
+  "version": "0.0.1",
+  "description": "Unofficial API wrapper for musical.ly",
+  "main": "lib/index.js",
+  "scripts": {
+    "lint": "tslint --project tsconfig.json --config tslint.json",
+    "test": "npm run lint && npm run type-check",
+    "type-check": "tsc --project tsconfig.json --noEmit",
+    "watch": "tsc -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/szdc/musically-api.git"
+  },
+  "keywords": [
+    "musically",
+    "musical.ly"
+  ],
+  "author": "Jack Willis-Craig",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/szdc/musically-api/issues"
+  },
+  "homepage": "https://github.com/szdc/musically-api#readme",
+  "devDependencies": {
+    "@types/node": "^10.3.0",
+    "tslint": "^5.10.0",
+    "tslint-config-airbnb": "^5.9.2",
+    "typescript": "^2.9.1"
+  },
+  "dependencies": {
+    "axios": "^0.18.0"
+  }
+}
