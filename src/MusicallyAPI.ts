@@ -64,7 +64,7 @@ export default class MusicallyAPI {
    * @param {AxiosRequestConfig} config
    * @returns {AxiosRequestConfig}
    */
-  addTimestampsToRequest = (config: AxiosRequestConfig): AxiosRequestConfig => ({
+  private addTimestampsToRequest = (config: AxiosRequestConfig): AxiosRequestConfig => ({
     ...config,
     params: {
       ts: Math.floor((new Date()).getTime() / 1000),

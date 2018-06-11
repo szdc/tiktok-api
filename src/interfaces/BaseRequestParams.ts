@@ -101,10 +101,10 @@ interface StaticRequestParams extends RequiredUserDefinedRequestParams {
 }
 
 interface BaseRequestParams extends StaticRequestParams, AntiSpamParams {
-  /** The current timestamp in milliseconds */
+  /** The current timestamp in seconds since UNIX epoch */
   ts: number;
 
-  /** The current timestamp in nanoseconds */
+  /** The current timestamp in milliseconds since UNIX epoch */
   _rticket: string;
 }
 
