@@ -26,3 +26,7 @@ api.loginWithEmail('user@example.com', 'password');
 
 **Note:** You need to source the above parameters using a man-in-the-middle proxy such as
 [mitmproxy](https://mitmproxy.org/) or [Charles Proxy](https://www.charlesproxy.com/).
+
+## Resources
+
+* [Reverse engineering the musical.ly API](https://medium.com/@szdc/reverse-engineering-the-musical-ly-api-662331008eb3)
