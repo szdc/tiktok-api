@@ -14,8 +14,9 @@ export default class MusicallyAPI {
     const config = {
       baseURL: 'https://api2.musical.ly/',
       host: 'api2.musical.ly',
-      userAgent: 'com.zhiliaoapp.musically/2018052132 (Linux; U; Android 6.0.1; en_US; MI 3W; ' +
-        'Build/MMB29M; Cronet/58.0.2991.0)',
+      userAgent: `com.zhiliaoapp.musically/${requestParams.manifest_version_code}`
+        + ` (Linux; U; Android ${requestParams.os_version}; ${requestParams.language}_${requestParams.region};`
+        + ` ${requestParams.device_type}; Build/NHG47Q; Cronet/58.0.2991.0)`,
       ...apiConfig,
     } as MusicallyAPIConfig;
 
@@ -82,15 +83,14 @@ export default class MusicallyAPI {
  */
 export const getRequestParams = (requestParams: RequiredUserDefinedRequestParams): StaticRequestParams => ({
   os_api: '23',
-  device_type: 'Pixel 2',
+  device_type: 'Pixel',
   ssmix: 'a',
   manifest_version_code: '2018052132',
-  dpi: 480,
+  dpi: 420,
   app_name: 'musical_ly',
   version_name: '7.2.0',
   timezone_offset: 37800,
   is_my_cn: false,
-  fp: '',
   ac: 'wifi',
   update_version_code: '2018052132',
   channel: 'googleplay',
@@ -100,7 +100,7 @@ export const getRequestParams = (requestParams: RequiredUserDefinedRequestParams
   timezone_name: 'Australia/Lord_Howe',
   account_region: 'AU',
   resolution: '1080*1920',
-  os_version: '8.0.0',
+  os_version: '7.1.2',
   device_brand: 'Google',
   mcc_mnc: '',
   app_language: 'en',
