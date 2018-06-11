@@ -3,11 +3,15 @@
   "version": "0.0.1",
   "description": "Unofficial API wrapper for musical.ly",
   "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
+    "build": "npm run clean && tsc",
+    "clean": "rm -rf lib",
     "lint": "tslint --project tsconfig.json --config tslint.json",
-    "test": "npm run lint && npm run type-check",
+    "prepublishOnly": "npm run clean && npm run lint && npm run test && npm run build",
+    "test": "npm run type-check",
     "type-check": "tsc --project tsconfig.json --noEmit",
-    "watch": "tsc -w"
+    "watch": "npm run clean && tsc -w"
   },
   "repository": {
     "type": "git",

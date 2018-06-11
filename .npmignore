@@ -1,0 +1,18 @@
+.idea/
+
+# Logs
+logs/
+*.log
+
+# Dependencies
+node_modules/
+
+# Project files
+/examples/
+/src/
+.travis.yml
+.editorconfig
+.gitignore
+package-lock.json
+tsconfig.json
+tslint.json

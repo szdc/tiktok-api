@@ -12,7 +12,7 @@
     "pretty": true,
     "removeComments": true,
     "skipLibCheck": true,
-    "sourceMap": true,
+    "sourceMap": false,
     "strict": true,
     "target": "es2015"
   },
