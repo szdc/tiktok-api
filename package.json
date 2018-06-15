@@ -7,6 +7,7 @@
   "scripts": {
     "build": "npm run clean && tsc",
     "clean": "rm -rf lib",
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
     "lint": "tslint --project tsconfig.json --config tslint.json",
     "prepublishOnly": "npm run clean && npm run lint && npm run test && npm run build",
     "test": "mocha",
@@ -54,6 +55,7 @@
       "coverage/**",
       "lib/**",
       "test/**",
+      "src/types/**",
       "**/*.d.ts"
     ],
     "reporter": [

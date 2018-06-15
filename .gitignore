@@ -9,3 +9,6 @@ node_modules/
 
 # Compiled files
 lib/
+
+# Coverage
+.nyc_output/

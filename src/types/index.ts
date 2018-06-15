@@ -1,2 +1,2 @@
-export * from './login.types';
-export * from './request.types';
+export * from './login';
+export * from './request';
