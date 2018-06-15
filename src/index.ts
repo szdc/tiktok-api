@@ -1,13 +1,14 @@
-import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
+import axios, { AxiosInstance, AxiosPromise, AxiosRequestConfig } from 'axios';
+import * as JSONBig from 'json-bigint';
 import { encryptWithXOR } from './cryptography';
 import {
-  LoginRequest,
+  LoginRequest, LoginResponse,
   RequiredUserDefinedRequestParams,
   StaticRequestParams,
 } from './types';
 
 export default class MusicallyAPI {
-  private request: AxiosInstance;
+  readonly request: AxiosInstance;
 
   /**
    * Creates a new API instance.
@@ -34,6 +35,9 @@ export default class MusicallyAPI {
         'user-agent': config.userAgent,
       } as AxiosRequestConfig,
       params: requestParams,
+
+      // Transform using JSONBig to store big numbers accurately (e.g. user IDs) as strings
+      transformResponse: data => JSONBig({ storeAsString: true }).parse(data),
     });
     this.request.interceptors.request.use(this.addTimestampsToRequest);
   }
@@ -62,7 +66,8 @@ export default class MusicallyAPI {
    * @param {LoginRequest} params
    * @returns {AxiosPromise}
    */
-  login = (params: LoginRequest) => this.request.post('passport/user/login', null, { params });
+  login = (params: LoginRequest): AxiosPromise<LoginResponse> =>
+    this.request.post<LoginResponse>('passport/user/login', null, { params })
 
   /**
    * Adds timestamp query string parameters to requests.
