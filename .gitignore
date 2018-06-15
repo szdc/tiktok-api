@@ -10,5 +10,8 @@ node_modules/
 # Compiled files
 lib/
 
+# Build
+*.tgz
+
 # Coverage
 .nyc_output/

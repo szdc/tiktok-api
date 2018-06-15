@@ -7,6 +7,9 @@ logs/
 # Dependencies
 node_modules/
 
+# Coverage
+.nyc_output/
+
 # Project files
 /examples/
 /src/
@@ -16,3 +19,6 @@ node_modules/
 package-lock.json
 tsconfig.json
 tslint.json
+
+# Build
+*.tgz
