@@ -1,4 +1,4 @@
-# Unofficial Musical.ly API
+# Unofficial Musical.ly API &middot; [![Build Status](https://travis-ci.com/szdc/musically-api.svg?branch=master)](https://travis-ci.com/szdc/musically-api) [![Coverage Status](https://coveralls.io/repos/github/szdc/musically-api/badge.svg?branch=master)](https://coveralls.io/github/szdc/musically-api?branch=master)
 
 A reverse-engineered implementation of the [musical.ly](https://musical.ly) app's API.
 
