@@ -6,20 +6,22 @@ cache:
   directories:
     - "node_modules"
 
-script:
-  - npm run lint
-  - npm run type-check
-  - npm run test-with-coverage
-  - npm run build
-
-after_success:
-  - npm run coverage
+stages:
+  - test
+  - name: deploy
+    if: tag IS present
 
 jobs:
   include:
-    - stage: npm release
-      if: tag IS present
-      node_js: "lts/*"
+    - stage: test
+      script:
+        - npm run lint
+        - npm run type-check
+        - npm run test-with-coverage
+        - npm run build
+      after_success:
+        - npm run coverage
+    - stage: deploy
       script:
         - npm run build
         - npm pack
