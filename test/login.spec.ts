@@ -1,15 +1,21 @@
+import MockAdapter from 'axios-mock-adapter';
 import { assert } from 'chai';
 import { describe, it } from 'mocha';
-import MockAdapter from 'axios-mock-adapter';
-import { LoginErrorData, LoginResponse, LoginSuccessData } from '../src/types';
+
+import MusicallyAPI, {
+  LoginErrorData,
+  LoginResponse,
+  LoginSuccessData,
+} from '../src';
 import { loadTestData, mockParams } from './util';
-import MusicallyAPI from '../src';
 
 describe('#loginWithEmail()', () => {
   it('a successful response should match the interface', async () => {
     const api = new MusicallyAPI(mockParams);
     const mock = new MockAdapter(api.request);
-    mock.onPost('passport/user/login').reply(200, loadTestData('login.json'));
+    const sessionId = '1234567890abcdef1234567890abcdef';
+    const sessionCookie = `sessionid=${sessionId}; Path=/; Domain=musical.ly; Max-Age=2592000; HttpOnly`;
+    mock.onPost('passport/user/login/').reply(200, loadTestData('login.json'), { 'set-cookie': sessionCookie });
 
     const res = await api.loginWithEmail('user@example.com', 'password');
     const expected: LoginResponse = {
@@ -35,7 +41,7 @@ describe('#loginWithEmail()', () => {
         new_user: 0,
         recommend_hint_message: '同时推荐给我的粉丝',
         screen_name: 'user',
-        session_key: '1234567890abcdef1234567890abcdef',
+        session_key: sessionId,
         skip_edit_profile: 0,
         user_auth_info: '',
         user_id: '9999999999999999999',
@@ -46,13 +52,19 @@ describe('#loginWithEmail()', () => {
       } as LoginSuccessData,
       message: 'success',
     };
-    assert.deepEqual(res.data, expected);
+    assert.deepStrictEqual(res.data, expected);
+
+    api.cookieJar.getCookies(<string>res.config.url, (err, cookies) => {
+      assert.isNull(err);
+      assert.lengthOf(cookies, 1);
+      assert.strictEqual(cookies[0].value, sessionId);
+    });
   });
 
   it('an error response should match the interface', async () => {
     const api = new MusicallyAPI(mockParams);
     const mock = new MockAdapter(api.request);
-    mock.onPost('passport/user/login').reply(200, loadTestData('login-error.json'));
+    mock.onPost('passport/user/login/').reply(200, loadTestData('login-error.json'), {});
 
     const res = await api.loginWithEmail('user@example.com', 'incorrect_password');
     const expected: LoginResponse = {
@@ -63,6 +75,6 @@ describe('#loginWithEmail()', () => {
       } as LoginErrorData,
       message: 'error',
     };
-    assert.deepEqual(res.data, expected);
+    assert.deepStrictEqual(res.data, expected);
   });
 });

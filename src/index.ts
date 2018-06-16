@@ -1,5 +1,8 @@
+import axiosCookieJarSupport from 'axios-cookiejar-support';
 import axios, { AxiosInstance, AxiosPromise, AxiosRequestConfig } from 'axios';
 import * as JSONBig from 'json-bigint';
+import { CookieJar } from 'tough-cookie';
+
 import { encryptWithXOR } from './cryptography';
 import {
   LoginRequest, LoginResponse,
@@ -8,6 +11,7 @@ import {
 } from './types';
 
 export default class MusicallyAPI {
+  readonly cookieJar: CookieJar;
   readonly request: AxiosInstance;
 
   /**
@@ -26,6 +30,7 @@ export default class MusicallyAPI {
       ...apiConfig,
     } as MusicallyAPIConfig;
 
+    this.cookieJar = new CookieJar();
     this.request = axios.create({
       baseURL: config.baseURL,
       headers: {
@@ -34,11 +39,12 @@ export default class MusicallyAPI {
         'accept-encoding': 'gzip',
         'user-agent': config.userAgent,
       } as AxiosRequestConfig,
+      jar: this.cookieJar,
       params: requestParams,
 
-      // Transform using JSONBig to store big numbers accurately (e.g. user IDs) as strings
-      transformResponse: data => JSONBig({ storeAsString: true }).parse(data),
+      transformResponse: this.transformResponse,
     });
+    axiosCookieJarSupport(this.request);
     this.request.interceptors.request.use(this.addTimestampsToRequest);
   }
 
@@ -67,7 +73,20 @@ export default class MusicallyAPI {
    * @returns {AxiosPromise}
    */
   login = (params: LoginRequest): AxiosPromise<LoginResponse> =>
-    this.request.post<LoginResponse>('passport/user/login', null, { params })
+    this.request.post<LoginResponse>('passport/user/login/', null, { params })
+
+  /**
+   * Transform using JSONBig to store big numbers accurately (e.g. user IDs) as strings.
+   *
+   * @param {any} data
+   * @returns {any}
+   */
+  transformResponse = (data: any) => {
+    if (!data || !data.length) {
+      return data;
+    }
+    return JSONBig({ storeAsString: true }).parse(data);
+  }
 
   /**
    * Adds timestamp query string parameters to requests.

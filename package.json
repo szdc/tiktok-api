@@ -29,11 +29,18 @@
     "url": "https://github.com/szdc/musically-api/issues"
   },
   "homepage": "https://github.com/szdc/musically-api#readme",
+  "dependencies": {
+    "@types/tough-cookie": "^2.3.3",
+    "axios": "^0.18.0",
+    "axios-cookiejar-support": "^0.3.5",
+    "json-bigint": "^0.3.0",
+    "tough-cookie": "^2.4.2"
+  },
   "devDependencies": {
     "@types/chai": "^4.1.4",
     "@types/mocha": "^5.2.2",
     "@types/node": "^10.3.0",
-    "axios-mock-adapter": "^1.15.0",
+    "axios-mock-adapter": "github:szdc/axios-mock-adapter",
     "chai": "^4.1.2",
     "coveralls": "^3.0.1",
     "mocha": "^5.2.0",
@@ -42,10 +49,6 @@
     "tslint": "^5.10.0",
     "tslint-config-airbnb": "^5.9.2",
     "typescript": "^2.9.1"
-  },
-  "dependencies": {
-    "axios": "^0.18.0",
-    "json-bigint": "^0.3.0"
   },
   "nyc": {
     "extension": [
