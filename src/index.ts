@@ -30,8 +30,9 @@ export default class MusicallyAPI {
    *
    * @param {StaticRequestParams} requestParams
    * @param {MusicallyAPIConfig} apiConfig
+   * @param {AxiosRequestConfig} requestConfig
    */
-  constructor(requestParams: StaticRequestParams, apiConfig: MusicallyAPIConfig) {
+  constructor(requestParams: StaticRequestParams, apiConfig: MusicallyAPIConfig, requestConfig?: AxiosRequestConfig) {
     if (typeof apiConfig.signURL !== 'function') {
       throw new Error('You must supply a signURL function to the MusicallyAPI config');
     }
@@ -54,12 +55,13 @@ export default class MusicallyAPI {
         connection: 'keep-alive',
         'accept-encoding': 'gzip',
         'user-agent': this.config.userAgent,
-      } as AxiosRequestConfig,
+      },
       jar: this.cookieJar,
       params: requestParams,
       transformResponse: this.transformResponse,
       withCredentials: true,
-    });
+      ...requestConfig,
+    } as AxiosRequestConfig);
     axiosCookieJarSupport(this.request);
 
     this.request.interceptors.request.use(this.signRequest);
