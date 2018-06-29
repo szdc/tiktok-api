@@ -38,7 +38,7 @@ export interface StaticRequestParams extends RequiredUserDefinedRequestParams {
   timezone_offset: number;
 
   /** ??? - are we in China / using the Chinese version? Set to 0 */
-  is_my_cn: boolean;
+  is_my_cn: number;
 
   /** Network connection type, e.g. "wifi" */
   ac: string;
@@ -67,7 +67,7 @@ export interface StaticRequestParams extends RequiredUserDefinedRequestParams {
    * This field is only present if you are logging in from a device that hasn't had a
    * user logged in before.
    */
-  account_region: string;
+  account_region?: string;
 
   /** Your device's resolution, e.g. 1080*1920 */
   resolution: string;
@@ -109,12 +109,60 @@ export interface BaseRequestParams extends StaticRequestParams, AntiSpamParams {
 }
 
 export interface AntiSpamParams {
-  /** An anti-spam parameter - not required */
-  as?: string;
+  /** A 20-character anti-spam parameter */
+  as: string;
 
-  /** An anti-spam parameter - not required */
-  cp?: string;
+  /** A 20-character anti-spam parameter */
+  cp: string;
 
-  /** An anti-spam parameter - not required */
-  mas?: string;
+  /** An encoded version of the 'as' anti-spam parameter */
+  mas: string;
+}
+
+export interface ListRequestParams {
+  /** The number of results to return */
+  count: number;
+
+  /**
+   * A timestamp in seconds - the most recent results before this time will be listed.
+   * Use min_time from the response data here for pagination.
+   */
+  max_time: number;
+
+  /** How the request will be retried on failure - defaults to "no_retry" */
+  retry_type?: string;
+}
+
+export interface ListResponseData extends BaseResponseData {
+  has_more: boolean;
+
+  /** The timestamp associated with the first result */
+  max_time: number;
+
+  /** The timestamp associated with the last result - use as max_time for pagination */
+  min_time: number;
+
+  /** The total number of results returned */
+  total: number;
+}
+
+export interface BaseResponseData {
+  extra: {
+    /** ??? */
+    fatal_item_ids: number[];
+
+    /** A log ID for this request */
+    logid: string;
+
+    /** The current timestamp in milliseconds */
+    now: number;
+  };
+
+  /** 0 if the request was successful */
+  status_code: number;
+}
+
+export interface Media {
+  /** A list of HTTP URLs to this media */
+  url_list: string[];
 }

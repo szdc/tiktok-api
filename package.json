@@ -30,10 +30,12 @@
   },
   "homepage": "https://github.com/szdc/musically-api#readme",
   "dependencies": {
+    "@types/qs": "^6.5.1",
     "@types/tough-cookie": "^2.3.3",
     "axios": "^0.18.0",
     "axios-cookiejar-support": "^0.3.5",
     "json-bigint": "^0.3.0",
+    "qs": "^6.5.2",
     "tough-cookie": "^2.4.2"
   },
   "devDependencies": {

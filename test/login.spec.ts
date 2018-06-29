@@ -7,15 +7,21 @@ import MusicallyAPI, {
   LoginResponse,
   LoginSuccessData,
 } from '../src';
-import { loadTestData, mockParams } from './util';
+import {
+  loadTestData,
+  mockConfig,
+  mockParams,
+} from './util';
 
 describe('#loginWithEmail()', () => {
   it('a successful response should match the interface', async () => {
-    const api = new MusicallyAPI(mockParams);
+    const api = new MusicallyAPI(mockParams, mockConfig);
     const mock = new MockAdapter(api.request);
     const sessionId = '1234567890abcdef1234567890abcdef';
     const sessionCookie = `sessionid=${sessionId}; Path=/; Domain=musical.ly; Max-Age=2592000; HttpOnly`;
-    mock.onPost('passport/user/login/').reply(200, loadTestData('login.json'), { 'set-cookie': sessionCookie });
+    mock
+      .onPost(new RegExp('passport/user/login/\?.*'))
+      .reply(200, loadTestData('login.json'), { 'set-cookie': sessionCookie });
 
     const res = await api.loginWithEmail('user@example.com', 'password');
     const expected: LoginResponse = {
@@ -62,9 +68,11 @@ describe('#loginWithEmail()', () => {
   });
 
   it('an error response should match the interface', async () => {
-    const api = new MusicallyAPI(mockParams);
+    const api = new MusicallyAPI(mockParams, mockConfig);
     const mock = new MockAdapter(api.request);
-    mock.onPost('passport/user/login/').reply(200, loadTestData('login-error.json'), {});
+    mock
+      .onPost(new RegExp('passport/user/login/\?.*'))
+      .reply(200, loadTestData('login-error.json'), {});
 
     const res = await api.loginWithEmail('user@example.com', 'incorrect_password');
     const expected: LoginResponse = {

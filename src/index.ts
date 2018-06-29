@@ -1,16 +1,27 @@
 import axiosCookieJarSupport from 'axios-cookiejar-support';
-import axios, { AxiosInstance, AxiosPromise, AxiosRequestConfig } from 'axios';
+import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 import * as JSONBig from 'json-bigint';
 import { CookieJar } from 'tough-cookie';
 
 import { encryptWithXOR } from './cryptography';
 import {
-  LoginRequest, LoginResponse,
+  BaseResponseData,
+  ListFollowerRequest,
+  ListFollowerResponse,
+  LoginRequest,
+  LoginResponse,
+  MusicallyAPIConfig,
   RequiredUserDefinedRequestParams,
   StaticRequestParams,
 } from './types';
+import {
+  paramsOrder,
+  paramsSerializer,
+  withDefaultListParams,
+} from './params';
 
 export default class MusicallyAPI {
+  readonly config: MusicallyAPIConfig;
   readonly cookieJar: CookieJar;
   readonly request: AxiosInstance;
 
@@ -20,8 +31,12 @@ export default class MusicallyAPI {
    * @param {StaticRequestParams} requestParams
    * @param {MusicallyAPIConfig} apiConfig
    */
-  constructor(requestParams: StaticRequestParams, apiConfig?: MusicallyAPIConfig) {
-    const config = {
+  constructor(requestParams: StaticRequestParams, apiConfig: MusicallyAPIConfig) {
+    if (typeof apiConfig.signURL !== 'function') {
+      throw new Error('You must supply a signURL function to the MusicallyAPI config');
+    }
+
+    this.config = {
       baseURL: 'https://api2.musical.ly/',
       host: 'api2.musical.ly',
       userAgent: `com.zhiliaoapp.musically/${requestParams.manifest_version_code}`
@@ -32,20 +47,22 @@ export default class MusicallyAPI {
 
     this.cookieJar = new CookieJar();
     this.request = axios.create({
-      baseURL: config.baseURL,
+      paramsSerializer: paramsSerializer(paramsOrder),
+      baseURL: this.config.baseURL,
       headers: {
-        host: config.host,
+        host: this.config.host,
         connection: 'keep-alive',
         'accept-encoding': 'gzip',
-        'user-agent': config.userAgent,
+        'user-agent': this.config.userAgent,
       } as AxiosRequestConfig,
       jar: this.cookieJar,
       params: requestParams,
-
       transformResponse: this.transformResponse,
+      withCredentials: true,
     });
     axiosCookieJarSupport(this.request);
-    this.request.interceptors.request.use(this.addTimestampsToRequest);
+
+    this.request.interceptors.request.use(this.signRequest);
   }
 
   /**
@@ -70,10 +87,21 @@ export default class MusicallyAPI {
    * Logs into musical.ly.
    *
    * @param {LoginRequest} params
-   * @returns {AxiosPromise}
+   * @returns {AxiosPromise<LoginResponse>}
    */
-  login = (params: LoginRequest): AxiosPromise<LoginResponse> =>
+  login = (params: LoginRequest) =>
     this.request.post<LoginResponse>('passport/user/login/', null, { params })
+
+  /**
+   * Lists a user's followers.
+   *
+   * @param {ListFollowerRequest} params
+   * @returns {AxiosPromise<ListFollowerResponse | BaseResponseData>}
+   */
+  listFollowers = (params: ListFollowerRequest) =>
+    this.request.get<ListFollowerResponse | BaseResponseData>('aweme/v1/user/follower/list/', {
+      params: withDefaultListParams(params),
+    })
 
   /**
    * Transform using JSONBig to store big numbers accurately (e.g. user IDs) as strings.
@@ -89,19 +117,32 @@ export default class MusicallyAPI {
   }
 
   /**
-   * Adds timestamp query string parameters to requests.
+   * Adds timestamps and calls out to an external method to sign the URL.
    *
    * @param {AxiosRequestConfig} config
-   * @returns {AxiosRequestConfig}
+   * @returns {Promise<AxiosRequestConfig>}
    */
-  private addTimestampsToRequest = (config: AxiosRequestConfig): AxiosRequestConfig => ({
-    ...config,
-    params: {
-      ts: Math.floor((new Date()).getTime() / 1000),
-      _rticket: (new Date()).getTime(),
+  private signRequest = async (config: AxiosRequestConfig): Promise<AxiosRequestConfig> => {
+    if (typeof config.paramsSerializer !== 'function') {
+      throw new Error('Missing required paramsSerializer function');
+    }
+
+    const ts = Math.floor((new Date()).getTime() / 1000);
+    const params = {
       ...config.params,
-    },
-  })
+      ts,
+      _rticket: new Date().getTime(),
+    };
+
+    const url = `${config.baseURL}${config.url}?${config.paramsSerializer(params)}`;
+    const signedURL = await this.config.signURL(url, ts, this.request.defaults.params.device_id);
+
+    return {
+      ...config,
+      url: signedURL,
+      params: {},
+    };
+  }
 }
 
 /**
@@ -119,7 +160,7 @@ export const getRequestParams = (requestParams: RequiredUserDefinedRequestParams
   app_name: 'musical_ly',
   version_name: '7.2.0',
   timezone_offset: 37800,
-  is_my_cn: false,
+  is_my_cn: 0,
   ac: 'wifi',
   update_version_code: '2018052132',
   channel: 'googleplay',
@@ -127,7 +168,6 @@ export const getRequestParams = (requestParams: RequiredUserDefinedRequestParams
   build_number: '7.2.0',
   version_code: 720,
   timezone_name: 'Australia/Lord_Howe',
-  account_region: 'AU',
   resolution: '1080*1920',
   os_version: '7.1.2',
   device_brand: 'Google',
@@ -140,11 +180,5 @@ export const getRequestParams = (requestParams: RequiredUserDefinedRequestParams
   aid: '1233',
   ...requestParams,
 });
-
-export interface MusicallyAPIConfig {
-  baseURL: string;
-  host: string;
-  userAgent: string;
-}
 
 export * from './types';

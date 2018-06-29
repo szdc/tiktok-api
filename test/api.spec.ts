@@ -2,14 +2,14 @@ import { assert } from 'chai';
 import { beforeEach, describe, it } from 'mocha';
 
 import MusicallyAPI from '../src';
-import { mockParams } from './util';
+import { mockConfig, mockParams } from './util';
 
 describe('MusicallyAPI', () => {
   describe('#transformResponse()', () => {
     let api: MusicallyAPI;
 
     beforeEach(() => {
-      api = new MusicallyAPI(mockParams);
+      api = new MusicallyAPI(mockParams, mockConfig);
     });
 
     it('should not attempt to transform empty responses', async () => {
