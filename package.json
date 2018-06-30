@@ -5,8 +5,9 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "build": "npm run clean && tsc",
+    "build": "npm run clean && tsc && npm run copy-types",
     "clean": "rm -rf lib",
+    "copy-types": "mkdir -p lib/types && node scripts/copy-types",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "lint": "tslint --project tsconfig.json --config tslint.json",
     "prepublishOnly": "npm run clean && npm run lint && npm run test && npm run build",
@@ -30,19 +31,24 @@
   },
   "homepage": "https://github.com/szdc/musically-api#readme",
   "dependencies": {
+    "@types/qs": "^6.5.1",
     "@types/tough-cookie": "^2.3.3",
     "axios": "^0.18.0",
     "axios-cookiejar-support": "^0.3.5",
     "json-bigint": "^0.3.0",
+    "qs": "^6.5.2",
     "tough-cookie": "^2.4.2"
   },
   "devDependencies": {
     "@types/chai": "^4.1.4",
+    "@types/chai-as-promised": "^7.1.0",
     "@types/mocha": "^5.2.2",
     "@types/node": "^10.3.0",
     "axios-mock-adapter": "github:szdc/axios-mock-adapter",
     "chai": "^4.1.2",
+    "chai-as-promised": "^7.1.1",
     "coveralls": "^3.0.1",
+    "glob": "^7.1.2",
     "mocha": "^5.2.0",
     "nyc": "^12.0.2",
     "ts-node": "^6.1.1",
@@ -54,11 +60,10 @@
     "extension": [
       ".ts"
     ],
+    "include": [
+      "src/**"
+    ],
     "exclude": [
-      "coverage/**",
-      "lib/**",
-      "test/**",
-      "src/types/**",
       "**/*.d.ts"
     ],
     "reporter": [

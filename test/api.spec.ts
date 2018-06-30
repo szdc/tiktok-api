@@ -1,15 +1,36 @@
 import { assert } from 'chai';
 import { beforeEach, describe, it } from 'mocha';
 
+import './support/setup';
 import MusicallyAPI from '../src';
-import { mockParams } from './util';
+import { mockConfig, mockParams } from './util';
+import { ListFollowerRequest, MusicallyAPIConfig } from '../src/types';
 
 describe('MusicallyAPI', () => {
+  describe('#constructor()', () => {
+    it('should throw an error if the signURL config param is not supplied', () => {
+      assert.throws(
+        () => new MusicallyAPI(mockParams, {} as MusicallyAPIConfig),
+        'You must supply a signURL function to the MusicallyAPI config',
+      );
+    });
+  });
+
+  describe('#signRequest()', () => {
+    it('should throw an error if the paramsSerializer function is not supplied', () => {
+      const api = new MusicallyAPI(mockParams, mockConfig, { paramsSerializer: undefined });
+      assert.isRejected(
+        api.listFollowers({ user_id: '9999999999999999999' } as ListFollowerRequest),
+        'Missing required paramsSerializer function',
+      );
+    });
+  });
+
   describe('#transformResponse()', () => {
     let api: MusicallyAPI;
 
     beforeEach(() => {
-      api = new MusicallyAPI(mockParams);
+      api = new MusicallyAPI(mockParams, mockConfig);
     });
 
     it('should not attempt to transform empty responses', async () => {
