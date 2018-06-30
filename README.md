@@ -72,3 +72,8 @@ See the [follower types](src/types/follower.d.ts) for the complete request/respo
 ## Resources
 
 * [Reverse engineering the musical.ly API](https://medium.com/@szdc/reverse-engineering-the-musical-ly-api-662331008eb3)
+
+## Legal
+
+This code is in no way affiliated with, authorized, maintained, sponsored or endorsed by musical.ly
+or any of its affiliates or subsidiaries. This is an independent and unofficial API. Use at your own risk.
