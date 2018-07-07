@@ -28,12 +28,15 @@
       "ins_id": "",
       "is_verified": false,
       "nickname": "example nickname",
+      "region": "US",
+      "room_id": 0,
       "secret": 0,
       "signature": "example signature",
       "twitter_id": "",
       "uid": "9999999999999999999",
       "unique_id": "example",
-      "verification_type": 0
+      "verification_type": 0,
+      "youtube_channel_id": ""
     }
   ],
   "has_more": false,

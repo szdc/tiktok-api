@@ -60,6 +60,20 @@ api.loginWithEmail('<email>', '<password>')
 
 See the [login types](src/types/login.d.ts) for the response data.
 
+#### #getUser(id)
+
+Gets a user's profile.
+
+```javascript
+api.getUser('<user_id>')
+  .then(res => console.log(res.data.user))
+  .catch(console.log);
+
+// Outputs:
+// { aweme_count: 1000, nickname: 'example', unique_id: 'musername', ... }
+
+```
+
 #### #listFollowers(params)
 
 Lists the users that follow the specified user.

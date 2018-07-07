@@ -13,6 +13,7 @@ import {
   MusicallyAPIConfig,
   RequiredUserDefinedRequestParams,
   StaticRequestParams,
+  UserProfileResponse,
 } from './types';
 import {
   paramsOrder,
@@ -93,6 +94,15 @@ export default class MusicallyAPI {
    */
   login = (params: LoginRequest) =>
     this.request.post<LoginResponse>('passport/user/login/', null, { params })
+
+  /**
+   * Gets a user's profile.
+   *
+   * @param {string} userId
+   * @returns {AxiosPromise<UserProfileResponse>}
+   */
+  getUser = (userId: string) =>
+    this.request.get<UserProfileResponse | BaseResponseData>('aweme/v1/user/', { params: { user_id: userId } })
 
   /**
    * Lists a user's followers.
