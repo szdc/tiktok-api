@@ -48,6 +48,16 @@ const api = new MusicallyAPI(params, { signURL });
 Authenticates you with the API and stores your session data in a cookie jar.
 Subsequent requests will include these cookies.
 
+```javascript
+api.loginWithEmail('<email>', '<password>')
+  .then(res => console.log(res.data))
+  .catch(console.log)
+
+// Outputs:
+// { email: '<email>', session_key: '123456', user_id: '123456', ... }
+
+```
+
 See the [login types](src/types/login.d.ts) for the response data.
 
 ##### #listFollowers(params)
