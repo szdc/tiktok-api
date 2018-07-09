@@ -123,27 +123,48 @@ export interface ListRequestParams {
   /** The number of results to return */
   count: number;
 
-  /**
-   * A timestamp in seconds - the most recent results before this time will be listed.
-   * Use min_time from the response data here for pagination.
-   */
-  max_time: number;
-
   /** How the request will be retried on failure - defaults to "no_retry" */
   retry_type?: string;
 }
 
 export interface ListResponseData extends BaseResponseData {
+  /** Whether there are more results that can be requested */
   has_more: boolean;
 
-  /** The timestamp associated with the first result */
+  /** The total number of results returned - not present in all list requests */
+  total?: number;
+}
+
+export interface TimeOffsetRequestParams {
+  /**
+   * A timestamp in seconds - the most recent results before this time will be listed.
+   * Use min_time from the response data here for pagination.
+   */
+  max_time: number;
+}
+
+export interface TimeOffsetResponseParams {
+  /** The timestamp in seconds associated with the first result */
   max_time: number;
 
-  /** The timestamp associated with the last result - use as max_time for pagination */
+  /** The timestamp in seconds associated with the last result - use as max_time for pagination */
   min_time: number;
+}
 
-  /** The total number of results returned */
-  total: number;
+export interface CursorOffsetRequestParams {
+  /**
+   * A timestamp in milliseconds - the most recent results before this time will be listed.
+   * Use min_cursor from the response data here for pagination.
+   */
+  max_cursor: number;
+}
+
+export interface CursorOffsetResponseParams {
+  /** The timestamp in milliseconds associated with the first result */
+  max_cursor: number;
+
+  /** The timestamp in milliseconds associated with the last result - use as max_time for pagination */
+  min_cursor: number;
 }
 
 export interface BaseResponseData {
