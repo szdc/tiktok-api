@@ -1,6 +1,6 @@
 {
   "name": "musically-api",
-  "version": "0.0.3",
+  "version": "0.2.0",
   "description": "Unofficial API wrapper for musical.ly",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
