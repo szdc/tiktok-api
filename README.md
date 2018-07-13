@@ -74,6 +74,27 @@ api.getUser('<user_id>')
 
 ```
 
+See the [user types](src/types/user.d.ts) for the response data.
+
+#### #listPosts(params)
+
+Lists a user's posts.
+
+```javascript
+api.listPosts({
+  user_id: '<user_id>',
+  max_cursor: 0,
+})
+  .then(res => console.log(res.data.aweme_list))
+  .catch(console.log);
+
+// Outputs:
+// [{ author: {...}, aweme_id: '999', desc: 'description', music: {...}, statistics: {...}, video: {...} }, ...]
+
+```
+
+See the [post types](src/types/post.d.ts) for the complete request/response objects.
+
 #### #listFollowers(params)
 
 Lists the users that follow the specified user.

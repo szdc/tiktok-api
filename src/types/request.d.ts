@@ -154,17 +154,17 @@ export interface TimeOffsetResponseParams {
 export interface CursorOffsetRequestParams {
   /**
    * A timestamp in milliseconds - the most recent results before this time will be listed.
-   * Use min_cursor from the response data here for pagination.
+   * Use max_cursor from the response data here for pagination. Use 0 for the most recent.
    */
   max_cursor: number;
 }
 
 export interface CursorOffsetResponseParams {
   /** The timestamp in milliseconds associated with the first result */
-  max_cursor: number;
-
-  /** The timestamp in milliseconds associated with the last result - use as max_time for pagination */
   min_cursor: number;
+
+  /** The timestamp in milliseconds associated with the last result - use for pagination */
+  max_cursor: number;
 }
 
 export interface BaseResponseData {
