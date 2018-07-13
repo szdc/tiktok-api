@@ -4,7 +4,7 @@ import { beforeEach, describe, it } from 'mocha';
 import './support/setup';
 import MusicallyAPI from '../src';
 import { mockConfig, mockParams } from './util';
-import { ListFollowerRequest, MusicallyAPIConfig } from '../src/types';
+import { ListFollowersRequest, MusicallyAPIConfig } from '../src/types';
 
 describe('MusicallyAPI', () => {
   describe('#constructor()', () => {
@@ -20,7 +20,7 @@ describe('MusicallyAPI', () => {
     it('should throw an error if the paramsSerializer function is not supplied', () => {
       const api = new MusicallyAPI(mockParams, mockConfig, { paramsSerializer: undefined });
       assert.isRejected(
-        api.listFollowers({ user_id: '9999999999999999999' } as ListFollowerRequest),
+        api.listFollowers({ user_id: '9999999999999999999' } as ListFollowersRequest),
         'Missing required paramsSerializer function',
       );
     });

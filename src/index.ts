@@ -6,8 +6,8 @@ import { CookieJar } from 'tough-cookie';
 import { encryptWithXOR } from './cryptography';
 import {
   BaseResponseData,
-  ListFollowerRequest,
-  ListFollowerResponse,
+  ListFollowersRequest,
+  ListFollowersResponse,
   ListPostsRequest,
   ListPostsResponse,
   LoginRequest,
@@ -120,11 +120,11 @@ export default class MusicallyAPI {
   /**
    * Lists a user's followers.
    *
-   * @param {ListFollowerRequest} params
-   * @returns {AxiosPromise<ListFollowerResponse | BaseResponseData>}
+   * @param {ListFollowersRequest} params
+   * @returns {AxiosPromise<ListFollowersResponse | BaseResponseData>}
    */
-  listFollowers = (params: ListFollowerRequest) =>
-    this.request.get<ListFollowerResponse | BaseResponseData>('aweme/v1/user/follower/list/', {
+  listFollowers = (params: ListFollowersRequest) =>
+    this.request.get<ListFollowersResponse | BaseResponseData>('aweme/v1/user/follower/list/', {
       params: withDefaultListParams(params),
     })
 

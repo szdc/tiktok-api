@@ -6,11 +6,11 @@ import {
   TimeOffsetResponseParams,
 } from './request';
 
-export interface ListFollowerRequest extends ListRequestParams, TimeOffsetRequestParams {
+export interface ListFollowersRequest extends ListRequestParams, TimeOffsetRequestParams {
   /** The id of the user whose followers to retrieve */
   user_id: string;
 }
 
-export interface ListFollowerResponse extends ListResponseData, TimeOffsetResponseParams {
+export interface ListFollowersResponse extends ListResponseData, TimeOffsetResponseParams {
   followers: CommonUserDetails[];
 }

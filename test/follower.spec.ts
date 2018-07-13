@@ -8,7 +8,7 @@ import {
   mockConfig,
   mockParams,
 } from './util';
-import { ListFollowerRequest, ListFollowerResponse } from '../src/types';
+import { ListFollowersRequest, ListFollowersResponse } from '../src/types';
 
 describe('#listFollowers()', () => {
   it('a successful response should match the interface', async () => {
@@ -18,8 +18,8 @@ describe('#listFollowers()', () => {
       .onGet(new RegExp('aweme/v1/user/follower/list/\?.*'))
       .reply(200, loadTestData('listFollowers.json'), {});
 
-    const res = await api.listFollowers({ user_id: '9999999999999999999' } as ListFollowerRequest);
-    const expected: ListFollowerResponse = {
+    const res = await api.listFollowers({ user_id: '9999999999999999999' } as ListFollowersRequest);
+    const expected: ListFollowersResponse = {
       extra: {
         fatal_item_ids: [],
         logid: '20180101000000000000000000000000',
