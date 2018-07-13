@@ -40,7 +40,7 @@ export interface Post {
   music: MusicTrack;
 
   /** An age rating for the post */
-  rate: string;
+  rate: number;
 
   /** The 2-letter region the post was created in, e.g. US */
   region: string;

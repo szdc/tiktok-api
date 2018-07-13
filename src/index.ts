@@ -8,6 +8,8 @@ import {
   BaseResponseData,
   ListFollowerRequest,
   ListFollowerResponse,
+  ListPostsRequest,
+  ListPostsResponse,
   LoginRequest,
   LoginResponse,
   MusicallyAPIConfig,
@@ -103,6 +105,17 @@ export default class MusicallyAPI {
    */
   getUser = (userId: string) =>
     this.request.get<UserProfileResponse | BaseResponseData>('aweme/v1/user/', { params: { user_id: userId } })
+
+  /**
+   * Lists a user's posts.
+   *
+   * @param {ListPostsRequest} params
+   * @returns {AxiosPromise<ListPostsResponse | BaseResponseData>}
+   */
+  listPosts = (params: ListPostsRequest) =>
+    this.request.get<ListPostsResponse | BaseResponseData>('aweme/v1/aweme/post/', {
+      params: withDefaultListParams(params),
+    })
 
   /**
    * Lists a user's followers.
