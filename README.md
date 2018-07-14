@@ -114,6 +114,25 @@ api.listFollowers({
 
 See the [follower types](src/types/follower.d.ts) for the complete request/response objects.
 
+#### #listFollowing(params)
+
+Lists the users that the specified user follows.
+
+```javascript
+api.listFollowing({
+  user_id: '<user_id>',
+  max_time: Math.floor(new Date().getTime() / 1000),
+})
+  .then(res => console.log(res.data.followings))
+  .catch(console.log);
+
+// Outputs:
+// [{ unique_id: 'following1' }, { unique_id: 'following2' }, ...]
+
+```
+
+See the [following types](src/types/follower.d.ts) for the complete request/response objects.
+
 ## Resources
 
 * [Reverse engineering the musical.ly API](https://medium.com/@szdc/reverse-engineering-the-musical-ly-api-662331008eb3)
