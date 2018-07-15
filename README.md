@@ -43,7 +43,13 @@ const api = new MusicallyAPI(params, { signURL });
 
 ### Instance methods
 
-#### #loginWithEmail(email, password)
+* [.loginWithEmail(email, password)](#loginwithemailemail-password)
+* [.getUser(id)](#getuserid)
+* [.listPosts(params)](#listpostsparams)
+* [.listFollowers(params)](#listfollowersparams)
+* [.listFollowing(params)](#listfollowingparams)
+
+#### .loginWithEmail(email, password)
 
 Authenticates you with the API and stores your session data in a cookie jar.
 Subsequent requests will include these cookies.
@@ -60,7 +66,7 @@ api.loginWithEmail('<email>', '<password>')
 
 See the [login types](src/types/login.d.ts) for the response data.
 
-#### #getUser(id)
+#### .getUser(id)
 
 Gets a user's profile.
 
@@ -76,7 +82,7 @@ api.getUser('<user_id>')
 
 See the [user types](src/types/user.d.ts) for the response data.
 
-#### #listPosts(params)
+#### .listPosts(params)
 
 Lists a user's posts.
 
@@ -95,7 +101,7 @@ api.listPosts({
 
 See the [post types](src/types/post.d.ts) for the complete request/response objects.
 
-#### #listFollowers(params)
+#### .listFollowers(params)
 
 Lists the users that follow the specified user.
 
@@ -114,7 +120,7 @@ api.listFollowers({
 
 See the [follower types](src/types/follower.d.ts) for the complete request/response objects.
 
-#### #listFollowing(params)
+#### .listFollowing(params)
 
 Lists the users that the specified user follows.
 
