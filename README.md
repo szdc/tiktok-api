@@ -50,6 +50,8 @@ const api = new MusicallyAPI(params, { signURL });
 * [.listFollowing(params)](#listfollowingparams)
 * [.follow(id)](#followid)
 * [.unfollow(id)](#unfollowid)
+* [.likePost(id)](#likepostid)
+* [.unlikePost(id)](#unlikepostid)
 
 #### .loginWithEmail(email, password)
 
