@@ -1,4 +1,5 @@
 export * from './api';
+export * from './follow';
 export * from './follower';
 export * from './login';
 export * from './music';

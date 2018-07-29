@@ -6,6 +6,8 @@ import { CookieJar } from 'tough-cookie';
 import { encryptWithXOR } from './cryptography';
 import {
   BaseResponseData,
+  FollowRequest,
+  FollowResponse,
   ListFollowersRequest,
   ListFollowersResponse,
   ListFollowingRequest,
@@ -139,6 +141,34 @@ export default class MusicallyAPI {
   listFollowing = (params: ListFollowingRequest) =>
     this.request.get<ListFollowingResponse | BaseResponseData>('aweme/v1/user/following/list/', {
       params: withDefaultListParams(params),
+    })
+
+  /**
+   * Follows a user.
+   *
+   * @param userId
+   * @returns {AxiosPromise<FollowResponse | BaseResponseData>}
+   */
+  follow = (userId: string) =>
+    this.request.get<FollowResponse | BaseResponseData>('aweme/v1/commit/follow/user/', {
+      params: <FollowRequest>{
+        user_id: userId,
+        type: 1,
+      },
+    })
+
+  /**
+   * Unfollows a user.
+   *
+   * @param userId
+   * @returns {AxiosPromise<FollowResponse | BaseResponseData>}
+   */
+  unfollow = (userId: string) =>
+    this.request.get<FollowResponse | BaseResponseData>('aweme/v1/commit/follow/user/', {
+      params: <FollowRequest>{
+        user_id: userId,
+        type: 0,
+      },
     })
 
   /**

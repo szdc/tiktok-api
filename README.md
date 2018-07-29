@@ -48,6 +48,8 @@ const api = new MusicallyAPI(params, { signURL });
 * [.listPosts(params)](#listpostsparams)
 * [.listFollowers(params)](#listfollowersparams)
 * [.listFollowing(params)](#listfollowingparams)
+* [.follow(id)](#followid)
+* [.unfollow(id)](#unfollowid)
 
 #### .loginWithEmail(email, password)
 
@@ -138,6 +140,38 @@ api.listFollowing({
 ```
 
 See the [following types](src/types/follower.d.ts) for the complete request/response objects.
+
+#### .follow(id)
+
+Follows a user.
+
+```javascript
+api.follow('<user_id>')
+  .then(res => console.log(res.data.follow_status))
+  .catch(console.log);
+
+// Outputs:
+// 1
+
+```
+
+See the [follow types](src/types/follow.d.ts) for the response data.
+
+#### .unfollow(id)
+
+Stops following a user.
+
+```javascript
+api.unfollow('<user_id>')
+  .then(res => console.log(res.data.follow_status))
+  .catch(console.log);
+
+// Outputs:
+// 0
+
+```
+
+See the [follow types](src/types/follow.d.ts) for the response data.
 
 ## Resources
 
