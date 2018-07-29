@@ -173,6 +173,34 @@ api.unfollow('<user_id>')
 
 See the [follow types](src/types/follow.d.ts) for the response data.
 
+#### .likePost(id)
+
+Likes a post.
+
+```javascript
+api.likePost('<post_id>')
+  .then(res => console.log(res.data.is_digg))
+  .catch(console.log);
+
+// Outputs:
+// 1
+
+```
+
+#### .unlikePost(id)
+
+Unlikes a post.
+
+```javascript
+api.unlikePost('<post_id>')
+  .then(res => console.log(res.data.is_digg))
+  .catch(console.log);
+
+// Outputs:
+// 0
+
+```
+
 ## Resources
 
 * [Reverse engineering the musical.ly API](https://medium.com/@szdc/reverse-engineering-the-musical-ly-api-662331008eb3)
