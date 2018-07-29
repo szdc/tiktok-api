@@ -7,7 +7,7 @@ import { encryptWithXOR } from './cryptography';
 import {
   BaseResponseData,
   FollowRequest,
-  FollowResponse,
+  FollowResponse, LikePostRequest, LikePostResponse,
   ListFollowersRequest,
   ListFollowersResponse,
   ListFollowingRequest,
@@ -167,6 +167,34 @@ export default class MusicallyAPI {
     this.request.get<FollowResponse | BaseResponseData>('aweme/v1/commit/follow/user/', {
       params: <FollowRequest>{
         user_id: userId,
+        type: 0,
+      },
+    })
+
+  /**
+   * Likes a post.
+   *
+   * @param postId
+   * @returns {AxiosPromise<LikePostResponse | BaseResponseData>}
+   */
+  likePost = (postId: string) =>
+    this.request.get<LikePostResponse | BaseResponseData>('aweme/v1/commit/item/digg/', {
+      params: <LikePostRequest>{
+        aweme_id: postId,
+        type: 1,
+      },
+    })
+
+  /**
+   * Unlikes a post.
+   *
+   * @param postId
+   * @returns {AxiosPromise<LikePostResponse | BaseResponseData>}
+   */
+  unlikePost = (postId: string) =>
+    this.request.get<LikePostResponse | BaseResponseData>('aweme/v1/commit/item/digg/', {
+      params: <LikePostRequest>{
+        aweme_id: postId,
         type: 0,
       },
     })
