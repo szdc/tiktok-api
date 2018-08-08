@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import { getRequestParams } from '../src';
-import { MusicallyAPIConfig } from '../src/types';
+import { TikTokAPIConfig } from '../src/types';
 
 export const mockParams = getRequestParams({
   device_id: '',
@@ -11,6 +11,6 @@ export const mockParams = getRequestParams({
 
 export const mockConfig = {
   signURL: (url: string) => url,
-} as MusicallyAPIConfig;
+} as TikTokAPIConfig;
 
 export const loadTestData = (filename: string) => fs.readFileSync(`test/testdata/${filename}`).toString();

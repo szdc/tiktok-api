@@ -2,7 +2,7 @@ import MockAdapter from 'axios-mock-adapter';
 import { assert } from 'chai';
 import { describe, it } from 'mocha';
 
-import MusicallyAPI, {
+import TikTokAPI, {
   LoginErrorData,
   LoginResponse,
   LoginSuccessData,
@@ -15,7 +15,7 @@ import {
 
 describe('#loginWithEmail()', () => {
   it('a successful response should match the interface', async () => {
-    const api = new MusicallyAPI(mockParams, mockConfig);
+    const api = new TikTokAPI(mockParams, mockConfig);
     const mock = new MockAdapter(api.request);
     const sessionId = '1234567890abcdef1234567890abcdef';
     const sessionCookie = `sessionid=${sessionId}; Path=/; Domain=musical.ly; Max-Age=2592000; HttpOnly`;
@@ -68,7 +68,7 @@ describe('#loginWithEmail()', () => {
   });
 
   it('an error response should match the interface', async () => {
-    const api = new MusicallyAPI(mockParams, mockConfig);
+    const api = new TikTokAPI(mockParams, mockConfig);
     const mock = new MockAdapter(api.request);
     mock
       .onPost(new RegExp('passport/user/login/\?.*'))

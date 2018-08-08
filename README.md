@@ -1,11 +1,11 @@
-# Unofficial Musical.ly API &middot; [![npm version](https://img.shields.io/npm/v/musically-api.svg?style=flat)](https://www.npmjs.com/package/musically-api) [![Coverage Status](https://img.shields.io/coveralls/szdc/musically-api/master.svg?style=flat)](https://coveralls.io/github/szdc/musically-api?branch=master) [![Build Status](https://travis-ci.com/szdc/musically-api.svg?branch=master)](https://travis-ci.com/szdc/musically-api) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/szdc/musically-api/issues) ![Supported musical.ly version](https://img.shields.io/badge/musical.ly-7.5.1-blue.svg)
+# Unofficial TikTok/Musical.ly API &middot; [![npm version](https://img.shields.io/npm/v/tiktok-api.svg?style=flat)](https://www.npmjs.com/package/tiktok-api) [![Coverage Status](https://img.shields.io/coveralls/szdc/tiktok-api/master.svg?style=flat)](https://coveralls.io/github/szdc/tiktok-api?branch=master) [![Build Status](https://travis-ci.com/szdc/tiktok-api.svg?branch=master)](https://travis-ci.com/szdc/tiktok-api) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/szdc/tiktok-api/issues) ![Supported TikTok version](https://img.shields.io/badge/TikTok-8.1.0-blue.svg)
 
-A reverse-engineered implementation of the [musical.ly](https://musical.ly) app's API.
+A reverse-engineered implementation of the [TikTok](https://www.tiktok.com/) (previously musical.ly) app's API.
 
 ## Installation
 
 ```bash
-npm i musically-api
+npm i tiktok-api
 ```
 
 ## Usage
@@ -13,7 +13,7 @@ npm i musically-api
 ### Creating an instance
 
 ```js
-import MusicallyAPI, { getRequestParams } from 'musically-api';
+import TikTokAPI, { getRequestParams } from 'tiktok-api';
 
 // Required - a method that signs the URL with anti-spam parameters
 // You must provide an implementation yourself to successfully make
@@ -35,7 +35,7 @@ const params = getRequestParams({
   openudid: '<device_open_udid>',
 });
 
-const api = new MusicallyAPI(params, { signURL });
+const api = new TikTokAPI(params, { signURL });
 
 // You are now able to make successful requests
 
@@ -209,5 +209,5 @@ api.unlikePost('<post_id>')
 
 ## Legal
 
-This code is in no way affiliated with, authorized, maintained, sponsored or endorsed by musical.ly
+This code is in no way affiliated with, authorized, maintained, sponsored or endorsed by TikTok
 or any of its affiliates or subsidiaries. This is an independent and unofficial API. Use at your own risk.

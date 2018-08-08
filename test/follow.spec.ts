@@ -2,7 +2,7 @@ import MockAdapter from 'axios-mock-adapter';
 import { assert } from 'chai';
 import { describe, it } from 'mocha';
 
-import MusicallyAPI, {
+import TikTokAPI, {
   FollowResponse,
 } from '../src';
 import {
@@ -15,7 +15,7 @@ const userId = '9999999999999999999';
 
 describe('#follow()', () => {
   it('a successful response should match the interface', async () => {
-    const api = new MusicallyAPI(mockParams, mockConfig);
+    const api = new TikTokAPI(mockParams, mockConfig);
     const mock = new MockAdapter(api.request);
     mock
       .onGet(new RegExp('aweme/v1/commit/follow/user/\?.*'))
@@ -38,7 +38,7 @@ describe('#follow()', () => {
 
 describe('#unfollow()', () => {
   it('a successful response should match the interface', async () => {
-    const api = new MusicallyAPI(mockParams, mockConfig);
+    const api = new TikTokAPI(mockParams, mockConfig);
     const mock = new MockAdapter(api.request);
     mock
       .onGet(new RegExp('aweme/v1/commit/follow/user/\?.*'))

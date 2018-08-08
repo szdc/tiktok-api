@@ -2,7 +2,7 @@ import MockAdapter from 'axios-mock-adapter';
 import { assert } from 'chai';
 import { describe, it } from 'mocha';
 
-import MusicallyAPI, { LikePostResponse } from '../src';
+import TikTokAPI, { LikePostResponse } from '../src';
 import {
   loadTestData,
   mockConfig,
@@ -13,7 +13,7 @@ const postId = '9999999999999999999';
 
 describe('#likePost()', () => {
   it('a successful response should match the interface', async () => {
-    const api = new MusicallyAPI(mockParams, mockConfig);
+    const api = new TikTokAPI(mockParams, mockConfig);
     const mock = new MockAdapter(api.request);
     mock
       .onGet(new RegExp('aweme/v1/commit/item/digg/\?.*'))
@@ -35,7 +35,7 @@ describe('#likePost()', () => {
 
 describe('#unlikePost()', () => {
   it('a successful response should match the interface', async () => {
-    const api = new MusicallyAPI(mockParams, mockConfig);
+    const api = new TikTokAPI(mockParams, mockConfig);
     const mock = new MockAdapter(api.request);
     mock
       .onGet(new RegExp('aweme/v1/commit/item/digg/\?.*'))

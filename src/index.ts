@@ -16,7 +16,7 @@ import {
   ListPostsResponse,
   LoginRequest,
   LoginResponse,
-  MusicallyAPIConfig,
+  TikTokAPIConfig,
   RequiredUserDefinedRequestParams,
   StaticRequestParams,
   UserProfileResponse,
@@ -27,8 +27,8 @@ import {
   withDefaultListParams,
 } from './params';
 
-export default class MusicallyAPI {
-  readonly config: MusicallyAPIConfig;
+export default class TikTokAPI {
+  readonly config: TikTokAPIConfig;
   readonly cookieJar: CookieJar;
   readonly request: AxiosInstance;
 
@@ -36,12 +36,12 @@ export default class MusicallyAPI {
    * Creates a new API instance.
    *
    * @param {StaticRequestParams} requestParams
-   * @param {MusicallyAPIConfig} apiConfig
+   * @param {TikTokAPIConfig} apiConfig
    * @param {AxiosRequestConfig} requestConfig
    */
-  constructor(requestParams: StaticRequestParams, apiConfig: MusicallyAPIConfig, requestConfig?: AxiosRequestConfig) {
+  constructor(requestParams: StaticRequestParams, apiConfig: TikTokAPIConfig, requestConfig?: AxiosRequestConfig) {
     if (typeof apiConfig.signURL !== 'function') {
-      throw new Error('You must supply a signURL function to the MusicallyAPI config');
+      throw new Error('You must supply a signURL function to the TikTokAPI config');
     }
 
     this.config = {
@@ -51,7 +51,7 @@ export default class MusicallyAPI {
         + ` (Linux; U; Android ${requestParams.os_version}; ${requestParams.language}_${requestParams.region};`
         + ` ${requestParams.device_type}; Build/NHG47Q; Cronet/58.0.2991.0)`,
       ...apiConfig,
-    } as MusicallyAPIConfig;
+    } as TikTokAPIConfig;
 
     this.cookieJar = new CookieJar();
     this.request = axios.create({

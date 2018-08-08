@@ -1,7 +1,7 @@
 {
-  "name": "musically-api",
+  "name": "tiktok-api",
   "version": "0.2.0",
-  "description": "Unofficial API wrapper for musical.ly",
+  "description": "Unofficial API wrapper for TikTok (previously musical.ly)",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
@@ -20,18 +20,20 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/szdc/musically-api.git"
+    "url": "git+https://github.com/szdc/tiktok-api.git"
   },
   "keywords": [
+    "tiktok",
+    "tik tok",
     "musically",
     "musical.ly"
   ],
   "author": "Jack Willis-Craig",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/szdc/musically-api/issues"
+    "url": "https://github.com/szdc/tiktok-api/issues"
   },
-  "homepage": "https://github.com/szdc/musically-api#readme",
+  "homepage": "https://github.com/szdc/tiktok-api#readme",
   "dependencies": {
     "@types/qs": "^6.5.1",
     "@types/tough-cookie": "^2.3.3",

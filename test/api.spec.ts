@@ -2,23 +2,23 @@ import { assert } from 'chai';
 import { beforeEach, describe, it } from 'mocha';
 
 import './support/setup';
-import MusicallyAPI from '../src';
+import TikTokAPI from '../src';
 import { mockConfig, mockParams } from './util';
-import { ListFollowersRequest, MusicallyAPIConfig } from '../src/types';
+import { ListFollowersRequest, TikTokAPIConfig } from '../src/types';
 
-describe('MusicallyAPI', () => {
+describe('TikTokAPI', () => {
   describe('#constructor()', () => {
     it('should throw an error if the signURL config param is not supplied', () => {
       assert.throws(
-        () => new MusicallyAPI(mockParams, {} as MusicallyAPIConfig),
-        'You must supply a signURL function to the MusicallyAPI config',
+        () => new TikTokAPI(mockParams, {} as TikTokAPIConfig),
+        'You must supply a signURL function to the TikTokAPI config',
       );
     });
   });
 
   describe('#signRequest()', () => {
     it('should throw an error if the paramsSerializer function is not supplied', () => {
-      const api = new MusicallyAPI(mockParams, mockConfig, { paramsSerializer: undefined });
+      const api = new TikTokAPI(mockParams, mockConfig, { paramsSerializer: undefined });
       assert.isRejected(
         api.listFollowers({ user_id: '9999999999999999999' } as ListFollowersRequest),
         'Missing required paramsSerializer function',
@@ -27,10 +27,10 @@ describe('MusicallyAPI', () => {
   });
 
   describe('#transformResponse()', () => {
-    let api: MusicallyAPI;
+    let api: TikTokAPI;
 
     beforeEach(() => {
-      api = new MusicallyAPI(mockParams, mockConfig);
+      api = new TikTokAPI(mockParams, mockConfig);
     });
 
     it('should not attempt to transform empty responses', async () => {

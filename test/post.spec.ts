@@ -2,7 +2,7 @@ import MockAdapter from 'axios-mock-adapter';
 import { assert } from 'chai';
 import { describe, it } from 'mocha';
 
-import MusicallyAPI, {
+import TikTokAPI, {
   CommonUserDetails,
   ListPostsRequest,
   ListPostsResponse,
@@ -15,7 +15,7 @@ import {
 
 describe('#listPosts()', () => {
   it('a successful response should match the interface', async () => {
-    const api = new MusicallyAPI(mockParams, mockConfig);
+    const api = new TikTokAPI(mockParams, mockConfig);
     const mock = new MockAdapter(api.request);
     mock
       .onGet(new RegExp('aweme/v1/aweme/post/\?.*'))
