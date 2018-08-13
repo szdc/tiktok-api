@@ -129,7 +129,7 @@ export interface ListRequestParams {
 
 export interface ListResponseData extends BaseResponseData {
   /** Whether there are more results that can be requested */
-  has_more: boolean;
+  has_more: boolean | 0 | 1;
 
   /** The total number of results returned - not present in all list requests */
   total?: number;
@@ -165,6 +165,11 @@ export interface CursorOffsetResponseParams {
 
   /** The timestamp in milliseconds associated with the last result - use for pagination */
   max_cursor: number;
+}
+
+export interface CountOffsetParams {
+  /** The number of results to skip */
+  cursor: number;
 }
 
 export interface BaseResponseData {
