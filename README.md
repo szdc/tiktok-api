@@ -56,6 +56,8 @@ const api = new TikTokAPI(params, { signURL });
 * [.unfollow(id)](#unfollowid)
 * [.likePost(id)](#likepostid)
 * [.unlikePost(id)](#unlikepostid)
+* [.listComments(params)](#listcommentsparams)
+* [.postComment(postId, text, [tags])](#postcommentpostid-text-tags)
 
 #### .loginWithEmail(email, password)
 
@@ -206,6 +208,41 @@ api.unlikePost('<post_id>')
 // 0
 
 ```
+
+#### .listComments(params)
+
+Lists comments for a post.
+
+```javascript
+api.listComments({
+  aweme_id: '<post_id>',
+  cursor: 0,
+})
+  .then(res => console.log(res.data.comments))
+  .catch(console.log);
+
+// Outputs:
+// [{ text: 'first!', user: {...} }, { text: 'second!', user: {...} }, ...]
+
+```
+
+See the [comment types](src/types/comment.d.ts) for the response data.
+
+#### .postComment(postId, text, [tags])
+
+Comments on a post.
+
+```javascript
+api.postComment('<post_id>', 'first!')
+  .then(res => console.log(res.data.comment))
+  .catch(console.log);
+
+// Outputs:
+// { cid: '<comment_id>', text: 'first!', user: {...}, ... }
+
+```
+
+See the [comment types](src/types/comment.d.ts) for the response data.
 
 ## Resources
 

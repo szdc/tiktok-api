@@ -1,13 +1,19 @@
 import axiosCookieJarSupport from 'axios-cookiejar-support';
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 import * as JSONBig from 'json-bigint';
+import * as qs from 'qs';
 import { CookieJar } from 'tough-cookie';
 
 import { encryptWithXOR } from './cryptography';
 import {
+  BaseRequestParams,
   BaseResponseData,
   FollowRequest,
-  FollowResponse, LikePostRequest, LikePostResponse,
+  FollowResponse,
+  LikePostRequest,
+  LikePostResponse,
+  ListCommentsRequest,
+  ListCommentsResponse,
   ListFollowersRequest,
   ListFollowersResponse,
   ListFollowingRequest,
@@ -16,9 +22,12 @@ import {
   ListPostsResponse,
   LoginRequest,
   LoginResponse,
-  TikTokAPIConfig,
+  PostCommentRequest,
+  PostCommentResponse,
   RequiredUserDefinedRequestParams,
   StaticRequestParams,
+  Tag,
+  TikTokAPIConfig,
   UserProfileResponse,
 } from './types';
 import {
@@ -89,7 +98,7 @@ export default class TikTokAPI {
     account: '',
     password: encryptWithXOR(password),
     captcha: '',
-    app_type: 'musical_ly',
+    app_type: 'normal',
   })
 
   /**
@@ -200,6 +209,44 @@ export default class TikTokAPI {
     })
 
   /**
+   * Lists comments for a post.
+   *
+   * @param params
+   */
+  listComments = (params: ListCommentsRequest) =>
+    this.request.get<ListCommentsResponse | BaseResponseData>('aweme/v1/comment/list/', {
+      params: withDefaultListParams(<ListCommentsRequest>{
+        comment_style: 2,
+        digged_cid: '',
+        insert_cids: '',
+        ...params,
+      }),
+    })
+
+  /**
+   * Posts a comment on a post.
+   *
+   * @param postId
+   * @param text
+   * @param tags
+   */
+  postComment = (postId: string, text: string, tags: Tag[] = []) =>
+    this.request.post<PostCommentResponse | BaseResponseData>(
+      'aweme/v1/comment/publish/',
+      qs.stringify(<PostCommentRequest>{
+        text,
+        aweme_id: postId,
+        text_extra: tags,
+        is_self_see: 0,
+      }),
+      {
+        headers: {
+          'content-type': 'application.x-www-form-urlencoded',
+        },
+      },
+    )
+
+  /**
    * Transform using JSONBig to store big numbers accurately (e.g. user IDs) as strings.
    *
    * @param {any} data
@@ -228,7 +275,7 @@ export default class TikTokAPI {
       ...config.params,
       ts,
       _rticket: new Date().getTime(),
-    };
+    } as BaseRequestParams;
 
     const url = `${config.baseURL}${config.url}?${config.paramsSerializer(params)}`;
     const signedURL = await this.config.signURL(url, ts, this.request.defaults.params.device_id);
@@ -251,18 +298,18 @@ export const getRequestParams = (requestParams: RequiredUserDefinedRequestParams
   os_api: '23',
   device_type: 'Pixel',
   ssmix: 'a',
-  manifest_version_code: '2018052132',
+  manifest_version_code: '2018080704',
   dpi: 420,
-  app_name: 'musical_ly',
-  version_name: '7.2.0',
+  app_name: 'normal',
+  version_name: '8.1.0',
   timezone_offset: 37800,
   is_my_cn: 0,
   ac: 'wifi',
-  update_version_code: '2018052132',
+  update_version_code: '2018080704',
   channel: 'googleplay',
   device_platform: 'android',
-  build_number: '7.2.0',
-  version_code: 720,
+  build_number: '8.1.0',
+  version_code: 810,
   timezone_name: 'Australia/Lord_Howe',
   resolution: '1080*1920',
   os_version: '7.1.2',

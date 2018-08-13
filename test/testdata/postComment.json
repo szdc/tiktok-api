@@ -1,0 +1,20 @@
+{
+  "comment": {
+    "aweme_id": "9999999999999999999",
+    "cid": "9999999999999999999",
+    "create_time": 1000000000,
+    "digg_count": 0,
+    "reply_id": "0",
+    "status": 4,
+    "text": "example comment",
+    "text_extra": [],
+    "user": {},
+    "user_digged": 0
+  },
+  "extra": {
+    "fatal_item_ids": [],
+    "logid": "20180101000000000000000000000000",
+    "now": 1000000000000
+  },
+  "status_code": 0
+}
