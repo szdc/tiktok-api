@@ -38,7 +38,7 @@ describe('#listComments()', () => {
           create_time: 1000000000,
           digg_count: 0,
           reply_id: '0',
-          status: 4,
+          status: 1,
           text: 'example comment',
           text_extra: [],
           user: {} as CommonUserDetails,
