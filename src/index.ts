@@ -11,7 +11,9 @@ import {
   FollowRequest,
   FollowResponse,
   LikePostRequest,
-  LikePostResponse, ListCommentsRequest,
+  LikePostResponse,
+  ListCommentsRequest,
+  ListCommentsResponse,
   ListFollowersRequest,
   ListFollowersResponse,
   ListFollowingRequest,
@@ -212,7 +214,7 @@ export default class TikTokAPI {
    * @param params
    */
   listComments = (params: ListCommentsRequest) =>
-    this.request.get<BaseResponseData>('aweme/v1/comment/list/', {
+    this.request.get<ListCommentsResponse | BaseResponseData>('aweme/v1/comment/list/', {
       params: withDefaultListParams(<ListCommentsRequest>{
         comment_style: 2,
         digged_cid: '',
