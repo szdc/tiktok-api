@@ -1,0 +1,23 @@
+{
+  "extra": {
+    "now": 1000000000000
+  },
+  "category_list": [{
+    "aweme_list": [],
+    "category_type": 0,
+    "challenge_info": {
+      "author": {},
+      "cha_name": "examplechallenge",
+      "cid": "9999999",
+      "desc": "example",
+      "is_pgcshow": false,
+      "schema": "",
+      "type": 0,
+      "user_count": 100000
+    },
+    "desc": "Trending Hashtag"
+  }],
+  "cursor": 10,
+  "has_more": 1,
+  "status_code": 0
+}
