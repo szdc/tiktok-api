@@ -12,6 +12,8 @@ import {
   FollowResponse,
   LikePostRequest,
   LikePostResponse,
+  ListCategoriesRequest,
+  ListCategoriesResponse,
   ListCommentsRequest,
   ListCommentsResponse,
   ListFollowersRequest,
@@ -245,6 +247,16 @@ export default class TikTokAPI {
         },
       },
     )
+
+  /**
+   * Lists popular categories/hashtags.
+   *
+   * @param params
+   */
+  listCategories = (params: ListCategoriesRequest = { count: 10, cursor: 0 }) =>
+    this.request.get<ListCategoriesResponse | BaseResponseData>('aweme/v1/category/list/', {
+      params: withDefaultListParams(params),
+    })
 
   /**
    * Transform using JSONBig to store big numbers accurately (e.g. user IDs) as strings.

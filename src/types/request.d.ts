@@ -175,10 +175,10 @@ export interface CountOffsetParams {
 export interface BaseResponseData {
   extra: {
     /** ??? */
-    fatal_item_ids: number[];
+    fatal_item_ids?: number[];
 
     /** A log ID for this request */
-    logid: string;
+    logid?: string;
 
     /** The current timestamp in milliseconds */
     now: number;

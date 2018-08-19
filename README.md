@@ -58,6 +58,7 @@ const api = new TikTokAPI(params, { signURL });
 * [.unlikePost(id)](#unlikepostid)
 * [.listComments(params)](#listcommentsparams)
 * [.postComment(postId, text, [tags])](#postcommentpostid-text-tags)
+* [.listCategories(params)](#listcategoriesparams)
 
 #### .loginWithEmail(email, password)
 
@@ -243,6 +244,25 @@ api.postComment('<post_id>', 'first!')
 ```
 
 See the [comment types](src/types/comment.d.ts) for the response data.
+
+#### .listCategories(params)
+
+Lists popular categories/hashtags.
+
+```javascript
+api.listCategories({
+  count: 10,
+  cursor: 0,
+})
+  .then(res => console.log(res.data.category_list))
+  .catch(console.log);
+
+// Outputs:
+// [{ { challenge_info: { cha_name: 'posechallenge', cid: '123' }, desc: 'Trending Hashtag' }, ...]
+
+```
+
+See the [category types](src/types/category.d.ts) for the complete request/response objects.
 
 ## Resources
 
