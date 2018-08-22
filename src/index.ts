@@ -10,6 +10,7 @@ import {
   BaseResponseData,
   FollowRequest,
   FollowResponse,
+  HashtagSearchResponse,
   LikePostRequest,
   LikePostResponse,
   ListCategoriesRequest,
@@ -27,10 +28,13 @@ import {
   PostCommentRequest,
   PostCommentResponse,
   RequiredUserDefinedRequestParams,
+  SearchRequest,
   StaticRequestParams,
   Tag,
   TikTokAPIConfig,
   UserProfileResponse,
+  UserSearchRequest,
+  UserSearchResponse,
 } from './types';
 import {
   paramsOrder,
@@ -120,6 +124,17 @@ export default class TikTokAPI {
    */
   getUser = (userId: string) =>
     this.request.get<UserProfileResponse | BaseResponseData>('aweme/v1/user/', { params: { user_id: userId } })
+
+  /**
+   * Searches for users.
+   *
+   * @param params
+   * @returns {AxiosPromise<UserSearchResponse | BaseResponseData>}
+   */
+  searchUsers = (params: UserSearchRequest) =>
+    this.request.get<UserSearchResponse | BaseResponseData>('aweme/v1/discover/search/', {
+      params: withDefaultListParams(params),
+    })
 
   /**
    * Lists a user's posts.
@@ -255,6 +270,17 @@ export default class TikTokAPI {
    */
   listCategories = (params: ListCategoriesRequest = { count: 10, cursor: 0 }) =>
     this.request.get<ListCategoriesResponse | BaseResponseData>('aweme/v1/category/list/', {
+      params: withDefaultListParams(params),
+    })
+
+  /**
+   * Searches for hashtags.
+   *
+   * @param params
+   * @returns {AxiosPromise<HashtagSearchResponse | BaseResponseData>}
+   */
+  searchHashtags = (params: SearchRequest) =>
+    this.request.get<HashtagSearchResponse | BaseResponseData>('aweme/v1/challenge/search/', {
       params: withDefaultListParams(params),
     })
 

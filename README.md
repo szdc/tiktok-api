@@ -49,6 +49,7 @@ const api = new TikTokAPI(params, { signURL });
 
 * [.loginWithEmail(email, password)](#loginwithemailemail-password)
 * [.getUser(id)](#getuserid)
+* [.searchUsers(params)](#searchusersparams)
 * [.listPosts(params)](#listpostsparams)
 * [.listFollowers(params)](#listfollowersparams)
 * [.listFollowing(params)](#listfollowingparams)
@@ -59,6 +60,7 @@ const api = new TikTokAPI(params, { signURL });
 * [.listComments(params)](#listcommentsparams)
 * [.postComment(postId, text, [tags])](#postcommentpostid-text-tags)
 * [.listCategories(params)](#listcategoriesparams)
+* [.searchHashtags(params)](#searchhashtagsparams)
 
 #### .loginWithEmail(email, password)
 
@@ -92,6 +94,26 @@ api.getUser('<user_id>')
 ```
 
 See the [user types](src/types/user.d.ts) for the response data.
+
+#### .searchUsers(params)
+
+Searches for users.
+
+```javascript
+api.searchUsers({
+  keyword: 'example',
+  count: 10,
+  cursor: 0,
+})
+  .then(res => console.log(res.data.user_list))
+  .catch(console.log);
+
+// Outputs:
+// [{ user_info: {...}, position: [], uniqposition: [] }, ...]
+
+```
+
+See the [search types](src/types/search.d.ts) for the complete request/response objects.
 
 #### .listPosts(params)
 
@@ -263,6 +285,26 @@ api.listCategories({
 ```
 
 See the [category types](src/types/category.d.ts) for the complete request/response objects.
+
+#### .searchHashtags(params)
+
+Searches for hashtags.
+
+```javascript
+api.searchHashtags({
+  keyword: 'example',
+  count: 10,
+  cursor: 0,
+})
+  .then(res => console.log(res.data.challenge_list))
+  .catch(console.log);
+
+// Outputs:
+// [{ challenge_info: {...}, position: [] }, ...]
+
+```
+
+See the [search types](src/types/search.d.ts) for the complete request/response objects.
 
 ## Resources
 
