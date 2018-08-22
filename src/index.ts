@@ -27,6 +27,8 @@ import {
   PostCommentRequest,
   PostCommentResponse,
   RequiredUserDefinedRequestParams,
+  SearchUsersRequest,
+  SearchUsersResponse,
   StaticRequestParams,
   Tag,
   TikTokAPIConfig,
@@ -120,6 +122,23 @@ export default class TikTokAPI {
    */
   getUser = (userId: string) =>
     this.request.get<UserProfileResponse | BaseResponseData>('aweme/v1/user/', { params: { user_id: userId } })
+
+  /**
+   * Searches for users.
+   *
+   * @param params
+   * @returns {AxiosPromise<SearchUsersResponse | BaseResponseData>}
+   */
+  searchUsers = (params: SearchUsersRequest) =>
+    this.request.get<SearchUsersResponse | BaseResponseData>('aweme/v1/discover/search/', {
+      params: withDefaultListParams(<SearchUsersRequest>{
+        count: 10,
+        cursor: 0,
+        keyword: '',
+        type: 1,
+        ...params,
+      }),
+    })
 
   /**
    * Lists a user's posts.

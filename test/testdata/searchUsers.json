@@ -1,0 +1,19 @@
+{
+  "extra": {
+    "now": 1000000000000
+  },
+  "user_list": [
+    {
+      "position": [{
+        "begin": 0,
+        "end": 6
+      }],
+      "uniqid_position": [],
+      "user_info": {}
+    }
+  ],
+  "type": 1,
+  "cursor": 1,
+  "has_more": 1,
+  "status_code": 0
+}
