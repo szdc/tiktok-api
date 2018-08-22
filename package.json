@@ -1,6 +1,6 @@
 {
   "name": "tiktok-api",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Unofficial API wrapper for TikTok (previously musical.ly)",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
