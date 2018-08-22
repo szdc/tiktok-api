@@ -284,6 +284,26 @@ api.listCategories({
 
 See the [category types](src/types/category.d.ts) for the complete request/response objects.
 
+#### .searchHashtags(params)
+
+Searches for hashtags.
+
+```javascript
+api.searchHashtags({
+  keyword: 'example',
+  count: 10,
+  cursor: 0,
+})
+  .then(res => console.log(res.data.challenge_list))
+  .catch(console.log);
+
+// Outputs:
+// [{ challenge_info: {...}, position: [] }, ...]
+
+```
+
+See the [search types](src/types/search.d.ts) for the complete request/response objects.
+
 ## Resources
 
 * [Reverse engineering the musical.ly API](https://medium.com/@szdc/reverse-engineering-the-musical-ly-api-662331008eb3)
