@@ -56,7 +56,7 @@ export interface HashtagSearchResult {
  * e.g. For the string "The quick brown fox", the substring "quick" would be:
  * {
  *     begin: 4,
- *     end: 6
+ *     end: 8
  * }
  */
 export interface SubstringPosition {
