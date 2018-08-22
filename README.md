@@ -49,6 +49,7 @@ const api = new TikTokAPI(params, { signURL });
 
 * [.loginWithEmail(email, password)](#loginwithemailemail-password)
 * [.getUser(id)](#getuserid)
+* [.searchUsers(params)](#searchusersparams)
 * [.listPosts(params)](#listpostsparams)
 * [.listFollowers(params)](#listfollowersparams)
 * [.listFollowing(params)](#listfollowingparams)
@@ -59,6 +60,7 @@ const api = new TikTokAPI(params, { signURL });
 * [.listComments(params)](#listcommentsparams)
 * [.postComment(postId, text, [tags])](#postcommentpostid-text-tags)
 * [.listCategories(params)](#listcategoriesparams)
+* [.searchHashtags(params)](#searchhashtagsparams)
 
 #### .loginWithEmail(email, password)
 
