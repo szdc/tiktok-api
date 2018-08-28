@@ -5,6 +5,7 @@ export * from './feed';
 export * from './follow';
 export * from './follower';
 export * from './like';
+export * from './live-stream';
 export * from './login';
 export * from './music';
 export * from './post';
