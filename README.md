@@ -61,8 +61,8 @@ const api = new TikTokAPI(params, { signURL });
 * [.postComment(postId, text, [tags])](#postcommentpostid-text-tags)
 * [.listCategories(params)](#listcategoriesparams)
 * [.searchHashtags(params)](#searchhashtagsparams)
-* [.listForYouFeed([params])](#listforyoufeed)
-* [.listFollowingFeed([params])](#listfollowingfeed)
+* [.listForYouFeed([params])](#listforyoufeedparams)
+* [.listFollowingFeed([params])](#listfollowingfeedparams)
 
 #### .loginWithEmail(email, password)
 
