@@ -376,7 +376,6 @@ api.leaveLiveStream('<room_id>')
 
 See the [live stream types](src/types/live-stream.d.ts) for the complete request/response objects.
 
-
 ## Resources
 
 * [Reverse engineering the musical.ly API](https://medium.com/@szdc/reverse-engineering-the-musical-ly-api-662331008eb3)
