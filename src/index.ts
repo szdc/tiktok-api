@@ -17,10 +17,13 @@ import {
   ListCategoriesResponse,
   ListCommentsRequest,
   ListCommentsResponse,
+  ListFeedRequest,
+  ListFeedResponse,
   ListFollowersRequest,
   ListFollowersResponse,
   ListFollowingRequest,
   ListFollowingResponse,
+  ListForYouFeedResponse,
   ListPostsRequest,
   ListPostsResponse,
   LoginRequest,
@@ -36,11 +39,8 @@ import {
   UserSearchRequest,
   UserSearchResponse,
 } from './types';
-import {
-  paramsOrder,
-  paramsSerializer,
-  withDefaultListParams,
-} from './params';
+import { FeedType, PullType } from './feed';
+import { paramsOrder, paramsSerializer, withDefaultListParams } from './params';
 
 export default class TikTokAPI {
   readonly config: TikTokAPIConfig;
@@ -282,6 +282,44 @@ export default class TikTokAPI {
   searchHashtags = (params: SearchRequest) =>
     this.request.get<HashtagSearchResponse | BaseResponseData>('aweme/v1/challenge/search/', {
       params: withDefaultListParams(params),
+    })
+
+  /**
+   * Lists posts in the For You feed.
+   *
+   * max_cursor should always be 0.
+   *
+   * @param params
+   */
+  listForYouFeed = (params?: ListFeedRequest) =>
+    this.request.get<ListForYouFeedResponse | BaseResponseData>('aweme/v1/feed/', {
+      params: withDefaultListParams(<ListFeedRequest>{
+        count: 6,
+        is_cold_start: 1,
+        max_cursor: 0,
+        pull_type: PullType.LoadMore,
+        type: FeedType.ForYou,
+        ...params,
+      }),
+    })
+
+  /**
+   * Lists posts in the Following feed.
+   *
+   * max_cursor should always be 0.
+   *
+   * @param params
+   */
+  listFollowingFeed = (params?: ListFeedRequest) =>
+    this.request.get<ListFeedResponse | BaseResponseData>('aweme/v1/feed/', {
+      params: withDefaultListParams(<ListFeedRequest>{
+        count: 6,
+        is_cold_start: 1,
+        max_cursor: 0,
+        pull_type: PullType.LoadMore,
+        type: FeedType.Following,
+        ...params,
+      }),
     })
 
   /**

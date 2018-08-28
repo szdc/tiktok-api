@@ -61,6 +61,8 @@ const api = new TikTokAPI(params, { signURL });
 * [.postComment(postId, text, [tags])](#postcommentpostid-text-tags)
 * [.listCategories(params)](#listcategoriesparams)
 * [.searchHashtags(params)](#searchhashtagsparams)
+* [.listForYouFeed([params])](#listforyoufeed)
+* [.listFollowingFeed([params])](#listfollowingfeed)
 
 #### .loginWithEmail(email, password)
 
@@ -305,6 +307,38 @@ api.searchHashtags({
 ```
 
 See the [search types](src/types/search.d.ts) for the complete request/response objects.
+
+#### .listForYouFeed([params])
+
+Lists posts in the For You feed.
+
+```javascript
+api.listForYouFeed()
+  .then(res => console.log(res.data.aweme_list))
+  .catch(console.log);
+
+// Outputs:
+// [{ author: {...}, aweme_id: '999', desc: 'description', music: {...}, statistics: {...}, video: {...} }, ...]
+
+```
+
+See the [feed types](src/types/feed.d.ts) for the complete request/response objects.
+
+#### .listFollowingFeed([params])
+
+Lists posts in the Following feed.
+
+```javascript
+api.listFollowingFeed()
+  .then(res => console.log(res.data.aweme_list))
+  .catch(console.log);
+
+// Outputs:
+// [{ author: {...}, aweme_id: '999', desc: 'description', music: {...}, statistics: {...}, video: {...} }, ...]
+
+```
+
+See the [feed types](src/types/feed.d.ts) for the complete request/response objects.
 
 ## Resources
 
