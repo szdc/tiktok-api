@@ -1,6 +1,7 @@
 export * from './api';
 export * from './category';
 export * from './comment';
+export * from './feed';
 export * from './follow';
 export * from './follower';
 export * from './like';
