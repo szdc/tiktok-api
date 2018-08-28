@@ -63,6 +63,8 @@ const api = new TikTokAPI(params, { signURL });
 * [.searchHashtags(params)](#searchhashtagsparams)
 * [.listForYouFeed([params])](#listforyoufeedparams)
 * [.listFollowingFeed([params])](#listfollowingfeedparams)
+* [.joinLiveStream(id)](#joinlivestreamid)
+* [.leaveLiveStream(id)](#leavelivestreamid)
 
 #### .loginWithEmail(email, password)
 
@@ -339,6 +341,41 @@ api.listFollowingFeed()
 ```
 
 See the [feed types](src/types/feed.d.ts) for the complete request/response objects.
+
+#### .joinLiveStream(id)
+
+Joins a live stream.  
+
+The `rtmp_pull_url` value can be used with VLC's `Open Network Stream` option.
+
+```javascript
+api.joinLiveStream('<room_id>')
+  .then(res => console.log(res.data.room))
+  .catch(console.log);
+
+// Outputs:
+// { create_time: 1000000000, owner: {...}, stream_url: {...}, title: 'Example', user_count: 1000, ... }
+
+```
+
+See the [live stream types](src/types/live-stream.d.ts) for the complete request/response objects.
+
+#### .leaveLiveStream(id)
+
+Leaves a live stream.
+
+```javascript
+api.leaveLiveStream('<room_id>')
+  .then(res => console.log(res.data.status_code))
+  .catch(console.log);
+
+// Outputs:
+// 0
+
+```
+
+See the [live stream types](src/types/live-stream.d.ts) for the complete request/response objects.
+
 
 ## Resources
 

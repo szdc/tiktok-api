@@ -11,6 +11,7 @@ import {
   FollowRequest,
   FollowResponse,
   HashtagSearchResponse,
+  JoinLiveStreamResponse,
   LikePostRequest,
   LikePostResponse,
   ListCategoriesRequest,
@@ -26,6 +27,7 @@ import {
   ListForYouFeedResponse,
   ListPostsRequest,
   ListPostsResponse,
+  LiveStreamRequest,
   LoginRequest,
   LoginResponse,
   PostCommentRequest,
@@ -320,6 +322,30 @@ export default class TikTokAPI {
         type: FeedType.Following,
         ...params,
       }),
+    })
+
+  /**
+   * Joins a live stream.
+   *
+   * @param id
+   */
+  joinLiveStream = (id: string) =>
+    this.request.get<JoinLiveStreamResponse | BaseResponseData>('aweme/v1/room/enter/', {
+      params: <LiveStreamRequest>{
+        room_id: id,
+      },
+    })
+
+  /**
+   * Leaves a live stream.
+   *
+   * @param id
+   */
+  leaveLiveStream = (id: string) =>
+    this.request.get<BaseResponseData>('aweme/v1/room/leave/', {
+      params: <LiveStreamRequest>{
+        room_id: id,
+      },
     })
 
   /**

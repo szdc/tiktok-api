@@ -1,0 +1,20 @@
+{
+  "extra": {
+    "now": 1000000000000
+  },
+  "room": {
+    "create_time": 1000000000,
+    "finish_time": 1000000001,
+    "owner": {},
+    "room_id": 9999999999999999999,
+    "status": 0,
+    "stream_id": 9000000000000000000,
+    "stream_url": {
+      "rtmp_pull_url": "http://pull-flv-l1-mus.pstatp.com/hudong/stream-9000000000000000000.flv",
+      "sid": 9000000000000000000
+    },
+    "title": "Example",
+    "user_count": 1000
+  },
+  "status_code": 0
+}
