@@ -4,59 +4,24 @@ import * as JSONBig from 'json-bigint';
 import * as qs from 'qs';
 import { CookieJar } from 'tough-cookie';
 
+import * as API from './types';
 import { encryptWithXOR } from './cryptography';
-import {
-  BaseRequestParams,
-  BaseResponseData,
-  FollowRequest,
-  FollowResponse,
-  HashtagSearchResponse,
-  JoinLiveStreamResponse,
-  LikePostRequest,
-  LikePostResponse,
-  ListCategoriesRequest,
-  ListCategoriesResponse,
-  ListCommentsRequest,
-  ListCommentsResponse,
-  ListFeedRequest,
-  ListFeedResponse,
-  ListFollowersRequest,
-  ListFollowersResponse,
-  ListFollowingRequest,
-  ListFollowingResponse,
-  ListForYouFeedResponse,
-  ListPostsRequest,
-  ListPostsResponse,
-  LiveStreamRequest,
-  LoginRequest,
-  LoginResponse,
-  PostCommentRequest,
-  PostCommentResponse,
-  RequiredUserDefinedRequestParams,
-  SearchRequest,
-  StaticRequestParams,
-  Tag,
-  TikTokAPIConfig,
-  UserProfileResponse,
-  UserSearchRequest,
-  UserSearchResponse,
-} from './types';
 import { FeedType, PullType } from './feed';
 import { paramsOrder, paramsSerializer, withDefaultListParams } from './params';
 
 export default class TikTokAPI {
-  readonly config: TikTokAPIConfig;
+  readonly config: API.TikTokAPIConfig;
   readonly cookieJar: CookieJar;
   readonly request: AxiosInstance;
 
   /**
    * Creates a new API instance.
    *
-   * @param {StaticRequestParams} requestParams
+   * @param {StaticRequestParams} reqParams
    * @param {TikTokAPIConfig} apiConfig
    * @param {AxiosRequestConfig} requestConfig
    */
-  constructor(requestParams: StaticRequestParams, apiConfig: TikTokAPIConfig, requestConfig?: AxiosRequestConfig) {
+  constructor(reqParams: API.StaticRequestParams, apiConfig: API.TikTokAPIConfig, requestConfig?: AxiosRequestConfig) {
     if (typeof apiConfig.signURL !== 'function') {
       throw new Error('You must supply a signURL function to the TikTokAPI config');
     }
@@ -64,11 +29,11 @@ export default class TikTokAPI {
     this.config = {
       baseURL: 'https://api2.musical.ly/',
       host: 'api2.musical.ly',
-      userAgent: `com.zhiliaoapp.musically/${requestParams.manifest_version_code}`
-        + ` (Linux; U; Android ${requestParams.os_version}; ${requestParams.language}_${requestParams.region};`
-        + ` ${requestParams.device_type}; Build/NHG47Q; Cronet/58.0.2991.0)`,
+      userAgent: `com.zhiliaoapp.musically/${reqParams.manifest_version_code}`
+        + ` (Linux; U; Android ${reqParams.os_version}; ${reqParams.language}_${reqParams.region};`
+        + ` ${reqParams.device_type}; Build/NHG47Q; Cronet/58.0.2991.0)`,
       ...apiConfig,
-    } as TikTokAPIConfig;
+    } as API.TikTokAPIConfig;
 
     this.cookieJar = new CookieJar();
     this.request = axios.create({
@@ -81,7 +46,7 @@ export default class TikTokAPI {
         'user-agent': this.config.userAgent,
       },
       jar: this.cookieJar,
-      params: requestParams,
+      params: reqParams,
       transformResponse: this.transformResponse,
       withCredentials: true,
       ...requestConfig,
@@ -115,8 +80,8 @@ export default class TikTokAPI {
    * @param {LoginRequest} params
    * @returns {AxiosPromise<LoginResponse>}
    */
-  login = (params: LoginRequest) =>
-    this.request.post<LoginResponse>('passport/user/login/', null, { params })
+  login = (params: API.LoginRequest) =>
+    this.request.post<API.LoginResponse>('passport/user/login/', null, { params })
 
   /**
    * Gets a user's profile.
@@ -125,7 +90,7 @@ export default class TikTokAPI {
    * @returns {AxiosPromise<UserProfileResponse>}
    */
   getUser = (userId: string) =>
-    this.request.get<UserProfileResponse | BaseResponseData>('aweme/v1/user/', { params: { user_id: userId } })
+    this.request.get<API.UserProfileResponse | API.BaseResponseData>('aweme/v1/user/', { params: { user_id: userId } })
 
   /**
    * Searches for users.
@@ -133,8 +98,8 @@ export default class TikTokAPI {
    * @param params
    * @returns {AxiosPromise<UserSearchResponse | BaseResponseData>}
    */
-  searchUsers = (params: UserSearchRequest) =>
-    this.request.get<UserSearchResponse | BaseResponseData>('aweme/v1/discover/search/', {
+  searchUsers = (params: API.UserSearchRequest) =>
+    this.request.get<API.UserSearchResponse | API.BaseResponseData>('aweme/v1/discover/search/', {
       params: withDefaultListParams(params),
     })
 
@@ -144,8 +109,8 @@ export default class TikTokAPI {
    * @param {ListPostsRequest} params
    * @returns {AxiosPromise<ListPostsResponse | BaseResponseData>}
    */
-  listPosts = (params: ListPostsRequest) =>
-    this.request.get<ListPostsResponse | BaseResponseData>('aweme/v1/aweme/post/', {
+  listPosts = (params: API.ListPostsRequest) =>
+    this.request.get<API.ListPostsResponse | API.BaseResponseData>('aweme/v1/aweme/post/', {
       params: withDefaultListParams(params),
     })
 
@@ -155,8 +120,8 @@ export default class TikTokAPI {
    * @param {ListFollowersRequest} params
    * @returns {AxiosPromise<ListFollowersResponse | BaseResponseData>}
    */
-  listFollowers = (params: ListFollowersRequest) =>
-    this.request.get<ListFollowersResponse | BaseResponseData>('aweme/v1/user/follower/list/', {
+  listFollowers = (params: API.ListFollowersRequest) =>
+    this.request.get<API.ListFollowersResponse | API.BaseResponseData>('aweme/v1/user/follower/list/', {
       params: withDefaultListParams(params),
     })
 
@@ -166,8 +131,8 @@ export default class TikTokAPI {
    * @param {ListFollowingRequest} params
    * @returns {AxiosPromise<ListFollowingResponse | BaseResponseData>}
    */
-  listFollowing = (params: ListFollowingRequest) =>
-    this.request.get<ListFollowingResponse | BaseResponseData>('aweme/v1/user/following/list/', {
+  listFollowing = (params: API.ListFollowingRequest) =>
+    this.request.get<API.ListFollowingResponse | API.BaseResponseData>('aweme/v1/user/following/list/', {
       params: withDefaultListParams(params),
     })
 
@@ -178,8 +143,8 @@ export default class TikTokAPI {
    * @returns {AxiosPromise<FollowResponse | BaseResponseData>}
    */
   follow = (userId: string) =>
-    this.request.get<FollowResponse | BaseResponseData>('aweme/v1/commit/follow/user/', {
-      params: <FollowRequest>{
+    this.request.get<API.FollowResponse | API.BaseResponseData>('aweme/v1/commit/follow/user/', {
+      params: <API.FollowRequest>{
         user_id: userId,
         type: 1,
       },
@@ -192,8 +157,8 @@ export default class TikTokAPI {
    * @returns {AxiosPromise<FollowResponse | BaseResponseData>}
    */
   unfollow = (userId: string) =>
-    this.request.get<FollowResponse | BaseResponseData>('aweme/v1/commit/follow/user/', {
-      params: <FollowRequest>{
+    this.request.get<API.FollowResponse | API.BaseResponseData>('aweme/v1/commit/follow/user/', {
+      params: <API.FollowRequest>{
         user_id: userId,
         type: 0,
       },
@@ -206,8 +171,8 @@ export default class TikTokAPI {
    * @returns {AxiosPromise<LikePostResponse | BaseResponseData>}
    */
   likePost = (postId: string) =>
-    this.request.get<LikePostResponse | BaseResponseData>('aweme/v1/commit/item/digg/', {
-      params: <LikePostRequest>{
+    this.request.get<API.LikePostResponse | API.BaseResponseData>('aweme/v1/commit/item/digg/', {
+      params: <API.LikePostRequest>{
         aweme_id: postId,
         type: 1,
       },
@@ -220,8 +185,8 @@ export default class TikTokAPI {
    * @returns {AxiosPromise<LikePostResponse | BaseResponseData>}
    */
   unlikePost = (postId: string) =>
-    this.request.get<LikePostResponse | BaseResponseData>('aweme/v1/commit/item/digg/', {
-      params: <LikePostRequest>{
+    this.request.get<API.LikePostResponse | API.BaseResponseData>('aweme/v1/commit/item/digg/', {
+      params: <API.LikePostRequest>{
         aweme_id: postId,
         type: 0,
       },
@@ -232,9 +197,9 @@ export default class TikTokAPI {
    *
    * @param params
    */
-  listComments = (params: ListCommentsRequest) =>
-    this.request.get<ListCommentsResponse | BaseResponseData>('aweme/v1/comment/list/', {
-      params: withDefaultListParams(<ListCommentsRequest>{
+  listComments = (params: API.ListCommentsRequest) =>
+    this.request.get<API.ListCommentsResponse | API.BaseResponseData>('aweme/v1/comment/list/', {
+      params: withDefaultListParams(<API.ListCommentsRequest>{
         comment_style: 2,
         digged_cid: '',
         insert_cids: '',
@@ -249,10 +214,10 @@ export default class TikTokAPI {
    * @param text
    * @param tags
    */
-  postComment = (postId: string, text: string, tags: Tag[] = []) =>
-    this.request.post<PostCommentResponse | BaseResponseData>(
+  postComment = (postId: string, text: string, tags: API.Tag[] = []) =>
+    this.request.post<API.PostCommentResponse | API.BaseResponseData>(
       'aweme/v1/comment/publish/',
-      qs.stringify(<PostCommentRequest>{
+      qs.stringify(<API.PostCommentRequest>{
         text,
         aweme_id: postId,
         text_extra: tags,
@@ -270,8 +235,8 @@ export default class TikTokAPI {
    *
    * @param params
    */
-  listCategories = (params: ListCategoriesRequest = { count: 10, cursor: 0 }) =>
-    this.request.get<ListCategoriesResponse | BaseResponseData>('aweme/v1/category/list/', {
+  listCategories = (params: API.ListCategoriesRequest = { count: 10, cursor: 0 }) =>
+    this.request.get<API.ListCategoriesResponse | API.BaseResponseData>('aweme/v1/category/list/', {
       params: withDefaultListParams(params),
     })
 
@@ -281,8 +246,8 @@ export default class TikTokAPI {
    * @param params
    * @returns {AxiosPromise<HashtagSearchResponse | BaseResponseData>}
    */
-  searchHashtags = (params: SearchRequest) =>
-    this.request.get<HashtagSearchResponse | BaseResponseData>('aweme/v1/challenge/search/', {
+  searchHashtags = (params: API.SearchRequest) =>
+    this.request.get<API.HashtagSearchResponse | API.BaseResponseData>('aweme/v1/challenge/search/', {
       params: withDefaultListParams(params),
     })
 
@@ -293,9 +258,9 @@ export default class TikTokAPI {
    *
    * @param params
    */
-  listForYouFeed = (params?: ListFeedRequest) =>
-    this.request.get<ListForYouFeedResponse | BaseResponseData>('aweme/v1/feed/', {
-      params: withDefaultListParams(<ListFeedRequest>{
+  listForYouFeed = (params?: API.ListFeedRequest) =>
+    this.request.get<API.ListForYouFeedResponse | API.BaseResponseData>('aweme/v1/feed/', {
+      params: withDefaultListParams(<API.ListFeedRequest>{
         count: 6,
         is_cold_start: 1,
         max_cursor: 0,
@@ -312,9 +277,9 @@ export default class TikTokAPI {
    *
    * @param params
    */
-  listFollowingFeed = (params?: ListFeedRequest) =>
-    this.request.get<ListFeedResponse | BaseResponseData>('aweme/v1/feed/', {
-      params: withDefaultListParams(<ListFeedRequest>{
+  listFollowingFeed = (params?: API.ListFeedRequest) =>
+    this.request.get<API.ListFeedResponse | API.BaseResponseData>('aweme/v1/feed/', {
+      params: withDefaultListParams(<API.ListFeedRequest>{
         count: 6,
         is_cold_start: 1,
         max_cursor: 0,
@@ -330,8 +295,8 @@ export default class TikTokAPI {
    * @param id
    */
   joinLiveStream = (id: string) =>
-    this.request.get<JoinLiveStreamResponse | BaseResponseData>('aweme/v1/room/enter/', {
-      params: <LiveStreamRequest>{
+    this.request.get<API.JoinLiveStreamResponse | API.BaseResponseData>('aweme/v1/room/enter/', {
+      params: <API.LiveStreamRequest>{
         room_id: id,
       },
     })
@@ -342,8 +307,8 @@ export default class TikTokAPI {
    * @param id
    */
   leaveLiveStream = (id: string) =>
-    this.request.get<BaseResponseData>('aweme/v1/room/leave/', {
-      params: <LiveStreamRequest>{
+    this.request.get<API.BaseResponseData>('aweme/v1/room/leave/', {
+      params: <API.LiveStreamRequest>{
         room_id: id,
       },
     })
@@ -377,7 +342,7 @@ export default class TikTokAPI {
       ...config.params,
       ts,
       _rticket: new Date().getTime(),
-    } as BaseRequestParams;
+    } as API.BaseRequestParams;
 
     const url = `${config.baseURL}${config.url}?${config.paramsSerializer(params)}`;
     const signedURL = await this.config.signURL(url, ts, this.request.defaults.params.device_id);
@@ -396,7 +361,7 @@ export default class TikTokAPI {
  * @param {RequiredUserDefinedRequestParams} requestParams
  * @returns {StaticRequestParams}
  */
-export const getRequestParams = (requestParams: RequiredUserDefinedRequestParams): StaticRequestParams => ({
+export const getRequestParams = (requestParams: API.RequiredUserDefinedRequestParams): API.StaticRequestParams => ({
   os_api: '23',
   device_type: 'Pixel',
   ssmix: 'a',
