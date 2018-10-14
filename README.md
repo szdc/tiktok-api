@@ -61,6 +61,7 @@ const api = new TikTokAPI(params, { signURL });
 * [.postComment(postId, text, [tags])](#postcommentpostid-text-tags)
 * [.listCategories(params)](#listcategoriesparams)
 * [.searchHashtags(params)](#searchhashtagsparams)
+* [.listPostsInHashtag(params)](#listpostsinhashtagparams)
 * [.listForYouFeed([params])](#listforyoufeedparams)
 * [.listFollowingFeed([params])](#listfollowingfeedparams)
 * [.joinLiveStream(id)](#joinlivestreamid)
@@ -309,6 +310,24 @@ api.searchHashtags({
 ```
 
 See the [search types](src/types/search.d.ts) for the complete request/response objects.
+
+#### .listPostsInHashtag(params)
+
+Lists posts in a hashtag.
+
+```javascript
+api.listPostsInHashtag({
+  ch_id: '<hashtag_id>',
+})
+  .then(res => console.log(res.data.aweme_list))
+  .catch(console.log);
+
+// Outputs:
+// [{ author: {...}, aweme_id: '999', desc: 'description', music: {...}, statistics: {...}, video: {...} }, ...]
+
+```
+
+See the [hashtag types](src/types/hashtag.d.ts) for the complete request/response objects.
 
 #### .listForYouFeed([params])
 
