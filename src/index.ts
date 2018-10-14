@@ -252,6 +252,20 @@ export default class TikTokAPI {
     })
 
   /**
+   *
+   * @param params
+   * @returns {AxiosPromise<ListPostsInHashtagRequest | BaseResponseData>}
+   */
+  listPostsInHashtag = (params: API.ListPostsInHashtagRequest) =>
+    this.request.get<API.ListPostsInHashtagResponse | API.BaseResponseData>('aweme/v1/challenge/aweme/', {
+      params: withDefaultListParams(<API.ListPostsInHashtagRequest>{
+        query_type: 0,
+        type: 5,
+        ...params,
+      }),
+    })
+
+  /**
    * Lists posts in the For You feed.
    *
    * max_cursor should always be 0.

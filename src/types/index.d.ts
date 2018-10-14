@@ -4,6 +4,7 @@ export * from './comment';
 export * from './feed';
 export * from './follow';
 export * from './follower';
+export * from './hashtag';
 export * from './like';
 export * from './live-stream';
 export * from './login';
