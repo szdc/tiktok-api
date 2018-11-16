@@ -165,6 +165,18 @@ export default class TikTokAPI {
     })
 
   /**
+   * Lists the users who have requested to follow the logged in user.
+   *
+   * @param {ListReceivedFollowRequestsRequest} params
+   * @returns {AxiosPromise<ListReceivedFollowRequestsResponse | BaseResponseData>}
+   */
+  listReceivedFollowRequests = (params: API.ListReceivedFollowRequestsRequest) =>
+    this.request.get<API.ListReceivedFollowRequestsResponse | API.BaseResponseData>(
+      'aweme/v1/user/following/request/list/',
+      { params: withDefaultListParams(params) },
+    )
+
+  /**
    * Likes a post.
    *
    * @param postId

@@ -55,6 +55,7 @@ const api = new TikTokAPI(params, { signURL });
 * [.listFollowing(params)](#listfollowingparams)
 * [.follow(id)](#followid)
 * [.unfollow(id)](#unfollowid)
+* [.listReceivedFollowRequests(params)](#listreceivedfollowrequestsparams)
 * [.likePost(id)](#likepostid)
 * [.unlikePost(id)](#unlikepostid)
 * [.listComments(params)](#listcommentsparams)
@@ -208,6 +209,25 @@ api.unfollow('<user_id>')
 ```
 
 See the [follow types](src/types/follow.d.ts) for the response data.
+
+#### .listReceivedFollowRequests(params)
+
+Lists the users that have requested to follow the logged in user.
+
+```javascript
+api.listReceivedFollowRequests({
+  max_time: Math.floor(new Date().getTime() / 1000),
+  count: 10,
+})
+  .then(res => console.log(res.data.request_users))
+  .catch(console.log);
+
+// Outputs:
+// [{ unique_id: 'user1' }, { unique_id: 'user2' }, ...]
+
+```
+
+See the [follow types](src/types/follow.d.ts) for the complete request/response objects.
 
 #### .likePost(id)
 
