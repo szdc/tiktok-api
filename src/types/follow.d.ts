@@ -30,3 +30,23 @@ export interface ListReceivedFollowRequestsResponse extends ListResponseData, Ti
   /** A list of users who have requested to follow you */
   request_users: CommonUserDetails[];
 }
+
+export interface ApproveFollowRequest {
+  /** The id of the user to approve */
+  from_user_id: string;
+}
+
+export interface ApproveFollowResponse extends BaseResponseData {
+  /** 0 if the user was successfully approved */
+  approve_status: number;
+}
+
+export interface RejectFollowRequest {
+  /** The id of the user to reject */
+  from_user_id: string;
+}
+
+export interface RejectFollowResponse extends BaseResponseData {
+  /** 0 if the user was successfully rejected */
+  reject_status: number;
+}

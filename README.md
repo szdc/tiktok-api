@@ -56,6 +56,8 @@ const api = new TikTokAPI(params, { signURL });
 * [.follow(id)](#followid)
 * [.unfollow(id)](#unfollowid)
 * [.listReceivedFollowRequests(params)](#listreceivedfollowrequestsparams)
+* [.approveFollowRequest(id)](#approvefollowrequestid)
+* [.rejectFollowRequest(id)](#rejectfollowrequestid)
 * [.likePost(id)](#likepostid)
 * [.unlikePost(id)](#unlikepostid)
 * [.listComments(params)](#listcommentsparams)
@@ -228,6 +230,38 @@ api.listReceivedFollowRequests({
 ```
 
 See the [follow types](src/types/follow.d.ts) for the complete request/response objects.
+
+#### .approveFollowRequest(id)
+
+Approves a user's request to follow you.
+
+```javascript
+api.approveFollowRequest('<user_id>')
+  .then(res => console.log(res.data.approve_status))
+  .catch(console.log);
+
+// Outputs:
+// 0
+
+```
+
+See the [follow types](src/types/follow.d.ts) for the response data.
+
+#### .rejectFollowRequest(id)
+
+Rejects a user's request to follow you.
+
+```javascript
+api.rejectFollowRequest('<user_id>')
+  .then(res => console.log(res.data.reject_status))
+  .catch(console.log);
+
+// Outputs:
+// 0
+
+```
+
+See the [follow types](src/types/follow.d.ts) for the response data.
 
 #### .likePost(id)
 

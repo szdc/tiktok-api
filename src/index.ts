@@ -177,6 +177,32 @@ export default class TikTokAPI {
     )
 
   /**
+   * Approves a request from a user to follow you.
+   *
+   * @param userId
+   * @returns {AxiosPromise<ApproveFollowResponse | BaseResponseData>}
+   */
+  approveFollowRequest = (userId: string) =>
+    this.request.get<API.ApproveFollowResponse | API.BaseResponseData>('aweme/v1/commit/follow/request/approve/', {
+      params: <API.ApproveFollowRequest>{
+        from_user_id: userId,
+      },
+    })
+
+  /**
+   * Rejects a request from a user to follow you.
+   *
+   * @param userId
+   * @returns {AxiosPromise<RejectFollowResponse | BaseResponseData>}
+   */
+  rejectFollowRequest = (userId: string) =>
+    this.request.get<API.RejectFollowResponse | API.BaseResponseData>('aweme/v1/commit/follow/request/reject/', {
+      params: <API.RejectFollowRequest>{
+        from_user_id: userId,
+      },
+    })
+
+  /**
    * Likes a post.
    *
    * @param postId
