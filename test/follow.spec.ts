@@ -3,7 +3,10 @@ import { assert } from 'chai';
 import { describe, it } from 'mocha';
 
 import TikTokAPI, {
-  FollowResponse, ListReceivedFollowRequestsResponse,
+  ApproveFollowResponse,
+  FollowResponse,
+  ListReceivedFollowRequestsResponse,
+  RejectFollowResponse,
 } from '../src';
 import {
   loadTestData,
@@ -80,6 +83,50 @@ describe('#listReceivedFollowRequests()', () => {
       min_time: 1000000001,
       status_code: 0,
       total: 1,
+    };
+    assert.deepStrictEqual(res.data, expected);
+  });
+});
+
+describe('#approveFollowRequest()', () => {
+  it('a successful response should match the interface', async () => {
+    const api = new TikTokAPI(mockParams, mockConfig);
+    const mock = new MockAdapter(api.request);
+    mock
+      .onGet(new RegExp('aweme/v1/commit/follow/request/approve/\?.*'))
+      .reply(200, loadTestData('approveFollowRequest.json'), {});
+
+    const res = await api.approveFollowRequest(userId);
+    const expected: ApproveFollowResponse = {
+      extra: {
+        fatal_item_ids: [],
+        logid: '20180101000000000000000000000000',
+        now: 1000000000000,
+      },
+      approve_status: 0,
+      status_code: 0,
+    };
+    assert.deepStrictEqual(res.data, expected);
+  });
+});
+
+describe('#rejectFollowRequest()', () => {
+  it('a successful response should match the interface', async () => {
+    const api = new TikTokAPI(mockParams, mockConfig);
+    const mock = new MockAdapter(api.request);
+    mock
+      .onGet(new RegExp('aweme/v1/commit/follow/request/reject/\?.*'))
+      .reply(200, loadTestData('rejectFollowRequest.json'), {});
+
+    const res = await api.rejectFollowRequest(userId);
+    const expected: RejectFollowResponse = {
+      extra: {
+        fatal_item_ids: [],
+        logid: '20180101000000000000000000000000',
+        now: 1000000000000,
+      },
+      reject_status: 0,
+      status_code: 0,
     };
     assert.deepStrictEqual(res.data, expected);
   });
