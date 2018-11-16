@@ -3,7 +3,7 @@ import { assert } from 'chai';
 import { describe, it } from 'mocha';
 
 import TikTokAPI, {
-  FollowResponse,
+  FollowResponse, ListReceivedFollowRequestsResponse,
 } from '../src';
 import {
   loadTestData,
@@ -54,6 +54,32 @@ describe('#unfollow()', () => {
       follow_status: 0,
       status_code: 0,
       watch_status: 0,
+    };
+    assert.deepStrictEqual(res.data, expected);
+  });
+});
+
+describe('#listReceivedFollowRequests()', () => {
+  it('a successful response should match the interface', async () => {
+    const api = new TikTokAPI(mockParams, mockConfig);
+    const mock = new MockAdapter(api.request);
+    mock
+      .onGet(new RegExp('aweme/v1/user/following/request/list/\?.*'))
+      .reply(200, loadTestData('listReceivedFollowRequests.json'), {});
+
+    const res = await api.listReceivedFollowRequests({ count: 10, max_time: 1000000000 });
+    const expected: ListReceivedFollowRequestsResponse = {
+      extra: {
+        fatal_item_ids: [],
+        logid: '20180101000000000000000000000000',
+        now: 1000000000000,
+      },
+      request_users: [],
+      has_more: false,
+      max_time: 1000000000,
+      min_time: 1000000001,
+      status_code: 0,
+      total: 1,
     };
     assert.deepStrictEqual(res.data, expected);
   });
