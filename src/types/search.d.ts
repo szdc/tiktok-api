@@ -8,7 +8,7 @@ export interface SearchRequest extends ListRequestParams, CountOffsetParams {
 }
 
 export interface UserSearchRequest extends SearchRequest {
-  /** The scope of the search - users = 1 */
+  /** Required - the scope of the search - users = 1. */
   type?: number;
 }
 

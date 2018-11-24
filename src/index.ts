@@ -100,7 +100,10 @@ export default class TikTokAPI {
    */
   searchUsers = (params: API.UserSearchRequest) =>
     this.request.get<API.UserSearchResponse | API.BaseResponseData>('aweme/v1/discover/search/', {
-      params: withDefaultListParams(params),
+      params: <API.UserSearchRequest>{
+        type: 1,
+        ...withDefaultListParams(params),
+      },
     })
 
   /**
