@@ -50,6 +50,7 @@ const api = new TikTokAPI(params, { signURL });
 * [.loginWithEmail(email, password)](#loginwithemailemail-password)
 * [.getUser(id)](#getuserid)
 * [.searchUsers(params)](#searchusersparams)
+* [.getQRCode(id, [schemaType])](#getqrcodeid-schematype)
 * [.listPosts(params)](#listpostsparams)
 * [.listFollowers(params)](#listfollowersparams)
 * [.listFollowing(params)](#listfollowingparams)
@@ -122,6 +123,22 @@ api.searchUsers({
 ```
 
 See the [search types](src/types/search.d.ts) for the complete request/response objects.
+
+#### .getQRCode(id, [schemaType])
+
+Gets the QR code for a user.
+
+```javascript
+api.getQRCode('<user_id>')
+  .then(res => console.log(res.data.qrcode_url.url_list[0]))
+  .catch(console.log);
+
+// Outputs:
+// 'http://p16.muscdn.com/img/musically-qrcode/1111111111111111111~c5_720x720.image'
+
+```
+
+See the [QR code types](src/types/qr-code.d.ts) for the complete request/response objects.
 
 #### .listPosts(params)
 

@@ -115,6 +115,31 @@ export default class TikTokAPI {
     })
 
   /**
+   * Gets the QR code image for a user.
+   *
+   * @param userId
+   * @param schemaType
+   * @returns {AxiosPromise<QRCodeResponse | BaseResponseData>}
+   */
+  getQRCode = (userId: string, schemaType = 4) =>
+    this.request.post<API.QRCodeResponse | API.BaseResponseData>(
+      'aweme/v1/fancy/qrcode/info/',
+      qs.stringify(<API.QRCodeRequest>{
+        schema_type: schemaType,
+        object_id: userId,
+      }),
+      {
+        headers: {
+          'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        },
+        params: {
+          js_sdk_version: '',
+          app_type: 'normal',
+        },
+      },
+    )
+
+  /**
    * Lists a user's posts.
    *
    * @param {ListPostsRequest} params
