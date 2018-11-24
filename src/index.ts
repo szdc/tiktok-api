@@ -44,6 +44,8 @@ export default class TikTokAPI {
         connection: 'keep-alive',
         'accept-encoding': 'gzip',
         'user-agent': this.config.userAgent,
+        'sdk-version': 1,
+        'x-ss-tc': 0,
       },
       jar: this.cookieJar,
       params: reqParams,
@@ -82,6 +84,12 @@ export default class TikTokAPI {
    */
   login = (params: API.LoginRequest) =>
     this.request.post<API.LoginResponse>('passport/user/login/', null, { params })
+      .then((res) => {
+        if (res.headers['x-tt-token']) {
+          this.request.defaults.headers.common['x-tt-token'] = res.headers['x-tt-token'];
+        }
+        return res;
+      })
 
   /**
    * Gets a user's profile.
@@ -420,19 +428,19 @@ export const getRequestParams = (requestParams: API.RequiredUserDefinedRequestPa
   os_api: '23',
   device_type: 'Pixel',
   ssmix: 'a',
-  manifest_version_code: '2018080704',
+  manifest_version_code: '2018111632',
   dpi: 420,
-  app_name: 'normal',
-  version_name: '8.1.0',
-  timezone_offset: 37800,
+  app_name: 'musical_ly',
+  version_name: '9.1.0',
+  timezone_offset: 36000,
   is_my_cn: 0,
   ac: 'wifi',
-  update_version_code: '2018080704',
+  update_version_code: '2018111632',
   channel: 'googleplay',
   device_platform: 'android',
-  build_number: '8.1.0',
-  version_code: 810,
-  timezone_name: 'Australia/Lord_Howe',
+  build_number: '9.1.0',
+  version_code: 910,
+  timezone_name: 'Australia/Brisbane',
   resolution: '1080*1920',
   os_version: '7.1.2',
   device_brand: 'Google',
@@ -442,7 +450,10 @@ export const getRequestParams = (requestParams: API.RequiredUserDefinedRequestPa
   region: 'US',
   sys_region: 'US',
   carrier_region: 'AU',
+  carrier_region_v2: '505',
   aid: '1233',
+  'pass-region': 1,
+  'pass-route': 1,
   ...requestParams,
 });
 

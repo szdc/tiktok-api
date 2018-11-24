@@ -1,7 +1,7 @@
 # Unofficial TikTok/Musical.ly API
 
 <!-- markdownlint-disable MD013 -->
-[![npm version](https://img.shields.io/npm/v/tiktok-api.svg?style=flat)](https://www.npmjs.com/package/tiktok-api) [![Coverage Status](https://img.shields.io/coveralls/szdc/tiktok-api/master.svg?style=flat)](https://coveralls.io/github/szdc/tiktok-api?branch=master) [![Build Status](https://travis-ci.com/szdc/tiktok-api.svg?branch=master)](https://travis-ci.com/szdc/tiktok-api) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/szdc/tiktok-api/issues) ![Supported TikTok version](https://img.shields.io/badge/TikTok-8.2.0-blue.svg)
+[![npm version](https://img.shields.io/npm/v/tiktok-api.svg?style=flat)](https://www.npmjs.com/package/tiktok-api) [![Coverage Status](https://img.shields.io/coveralls/szdc/tiktok-api/master.svg?style=flat)](https://coveralls.io/github/szdc/tiktok-api?branch=master) [![Build Status](https://travis-ci.com/szdc/tiktok-api.svg?branch=master)](https://travis-ci.com/szdc/tiktok-api) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/szdc/tiktok-api/issues) ![Supported TikTok version](https://img.shields.io/badge/TikTok-9.1.0-blue.svg)
 <!-- markdownlint-enable MD013 -->
 
 A reverse-engineered implementation of the [TikTok](https://www.tiktok.com/) (previously musical.ly) app's API.

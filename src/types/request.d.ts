@@ -96,8 +96,17 @@ export interface StaticRequestParams extends RequiredUserDefinedRequestParams {
   /** Your carrier's region (a two-letter country code), e.g. AU */
   carrier_region: string;
 
+  /** You carrer's mobile country code (MCC), e.g. 505 */
+  carrier_region_v2: string;
+
   /** A hard-coded i18n constant set to "1233" */
   aid: string;
+
+  /** ??? - set to 1 */
+  'pass-region': number;
+
+  /** ??? - set to 1 */
+  'pass-route': number;
 }
 
 export interface BaseRequestParams extends StaticRequestParams, AntiSpamParams {
