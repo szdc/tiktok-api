@@ -19,9 +19,13 @@ describe('#loginWithEmail()', () => {
     const mock = new MockAdapter(api.request);
     const sessionId = '1234567890abcdef1234567890abcdef';
     const sessionCookie = `sessionid=${sessionId}; Path=/; Domain=musical.ly; Max-Age=2592000; HttpOnly`;
+    const token = 'token';
     mock
       .onPost(new RegExp('passport/user/login/\?.*'))
-      .reply(200, loadTestData('login.json'), { 'set-cookie': sessionCookie });
+      .reply(200, loadTestData('login.json'), {
+        'set-cookie': sessionCookie,
+        'x-tt-token': token,
+      });
 
     const res = await api.loginWithEmail('user@example.com', 'password');
     const expected: LoginResponse = {
@@ -65,6 +69,8 @@ describe('#loginWithEmail()', () => {
       assert.lengthOf(cookies, 1);
       assert.strictEqual(cookies[0].value, sessionId);
     });
+
+    assert.strictEqual(api.request.defaults.headers.common['x-tt-token'], token);
   });
 
   it('an error response should match the interface', async () => {
