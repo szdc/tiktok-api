@@ -59,31 +59,49 @@ export default class TikTokAPI {
   }
 
   /**
-   * Logs into musical.ly using an email and password.
+   * Logs in using an email and password.
    *
    * @param {string} email
    * @param {string} password
-   * @returns {AxiosPromise}
+   * @returns {AxiosPromise<LoginResponse>}
    */
   loginWithEmail = (email: string, password: string) => this.login({
-    mix_mode: 1,
-    username: '',
     email: encryptWithXOR(email),
-    mobile: '',
-    account: '',
     password: encryptWithXOR(password),
-    captcha: '',
+  })
+
+  /**
+   * Logs in using a username and password.
+   *
+   * @param {string} username
+   * @param {string} password
+   * @returns {AxiosPromise<LoginResponse>}
+   */
+  loginWithUsername = (username: string, password: string) => this.login({
+    username: encryptWithXOR(username),
+    password: encryptWithXOR(password),
     app_type: 'normal',
   })
 
   /**
-   * Logs into musical.ly.
+   * Logs in to the app.
    *
    * @param {LoginRequest} params
    * @returns {AxiosPromise<LoginResponse>}
    */
   login = (params: API.LoginRequest) =>
-    this.request.post<API.LoginResponse>('passport/user/login/', null, { params })
+    this.request.post<API.LoginResponse>('passport/user/login/', null, {
+      params: <API.LoginRequest>{
+        mix_mode: 1,
+        username: '',
+        email: '',
+        mobile: '',
+        account: '',
+        password: '',
+        captcha: '',
+        ...params,
+      },
+    })
       .then((res) => {
         if (res.headers['x-tt-token']) {
           this.request.defaults.headers.common['x-tt-token'] = res.headers['x-tt-token'];

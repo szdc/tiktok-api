@@ -92,3 +92,21 @@ describe('#loginWithEmail()', () => {
     assert.deepStrictEqual(res.data, expected);
   });
 });
+
+describe('#loginWithUsername()', () => {
+  it('should call the TikTok API', async () => {
+    const api = new TikTokAPI(mockParams, mockConfig);
+    const mock = new MockAdapter(api.request);
+    mock
+      .onPost(new RegExp('passport/user/login/\?.*'))
+      .reply(200, loadTestData('login.json'), {});
+
+    api.request.interceptors.request.use((config) => {
+      assert.propertyVal(config.params, 'username', '707660776b646860');
+      assert.propertyVal(config.params, 'password', '75647676726a7761');
+      return config;
+    });
+
+    await api.loginWithUsername('username', 'password');
+  });
+});
