@@ -80,7 +80,6 @@ export default class TikTokAPI {
   loginWithUsername = (username: string, password: string) => this.login({
     username: encryptWithXOR(username),
     password: encryptWithXOR(password),
-    app_type: 'normal',
   })
 
   /**
