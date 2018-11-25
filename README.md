@@ -71,6 +71,7 @@ const api = new TikTokAPI(params, { signURL });
 * [.listFollowingFeed([params])](#listfollowingfeedparams)
 * [.joinLiveStream(id)](#joinlivestreamid)
 * [.leaveLiveStream(id)](#leavelivestreamid)
+* [.canStartLiveStream()](#canstartlivestream)
 
 #### .loginWithEmail(email, password)
 
@@ -479,6 +480,22 @@ api.leaveLiveStream('<room_id>')
 
 // Outputs:
 // 0
+
+```
+
+See the [live stream types](src/types/live-stream.d.ts) for the complete request/response objects.
+
+#### .canStartLiveStream()
+
+Determines if the current user is allowed to start a live stream.
+
+```javascript
+api.canStartLiveStream()
+  .then(res => console.log(res.data.can_be_live_podcast))
+  .catch(console.log);
+
+// Outputs:
+// true
 
 ```
 
