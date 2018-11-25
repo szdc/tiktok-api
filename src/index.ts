@@ -7,6 +7,7 @@ import { CookieJar } from 'tough-cookie';
 import * as API from './types';
 import { encryptWithXOR } from './cryptography';
 import { FeedType, PullType } from './feed';
+import { LiveStreamStatus, LiveStreamStatusChangedReason } from './live-stream';
 import { paramsOrder, paramsSerializer, withDefaultListParams } from './params';
 
 export default class TikTokAPI {
@@ -423,6 +424,76 @@ export default class TikTokAPI {
    */
   canStartLiveStream = () =>
     this.request.get<API.CanStartLiveStreamResponse | API.BaseResponseData>('aweme/v1/live/podcast/')
+
+  /**
+   * Creates a live stream room and sets the status to started.
+   *
+   * @param title
+   * @param contactsAuthorized
+   */
+  startLiveStream = (title: string, contactsAuthorized = 0) =>
+    this.createLiveStreamRoom(title, contactsAuthorized)
+      .then((createRoomRes) => {
+        if (createRoomRes.data.status_code !== 0) {
+          throw new Error(`The live stream room could not be created: ${JSON.stringify(createRoomRes.data)}`);
+        }
+
+        const { room } = createRoomRes.data as API.CreateLiveStreamRoomResponse;
+        return this.updateLiveStreamStatus({
+          room_id: room.room_id,
+          stream_id: room.stream_id,
+          status: LiveStreamStatus.Started,
+          reason_no: LiveStreamStatusChangedReason.InitiatedByApp,
+        }).then((updateStatusRes) => {
+          if (updateStatusRes.data.status_code !== 0) {
+            throw new Error(`The live stream could not be started: ${JSON.stringify(updateStatusRes.data)}`);
+          }
+
+          return createRoomRes;
+        });
+      })
+
+  /**
+   * Ends a live stream.
+   *
+   * @param roomId
+   * @param streamId
+   */
+  endLiveStream = (roomId: string, streamId: string) =>
+    this.updateLiveStreamStatus({
+      room_id: roomId,
+      stream_id: streamId,
+      status: LiveStreamStatus.Ended,
+      reason_no: LiveStreamStatusChangedReason.InitiatedByUser,
+    })
+
+  /**
+   * Creates a room to host a live stream.
+   *
+   * @param title
+   * @param contactsAuthorized
+   */
+  createLiveStreamRoom = (title: string, contactsAuthorized = 0) =>
+    this.request.post<API.CreateLiveStreamRoomResponse | API.BaseResponseData>('aweme/v1/room/create/', {
+      params: <API.CreateLiveStreamRoomRequest>{
+        title,
+        contacts_authorized: contactsAuthorized,
+      },
+    })
+
+  /**
+   * Updates the status of a live stream.
+   *
+   * @param params
+   */
+  updateLiveStreamStatus = (params: API.UpdateLiveStreamStatusRequest) =>
+    this.request.get<API.UpdateLiveStreamStatusResponse>('aweme/v1/room/update/status/', {
+      params: <API.UpdateLiveStreamStatusRequest>{
+        status: LiveStreamStatus.Ended,
+        reason_no: LiveStreamStatusChangedReason.InitiatedByUser,
+        ...params,
+      },
+    })
 
   /**
    * Transform using JSONBig to store big numbers accurately (e.g. user IDs) as strings.
