@@ -48,6 +48,7 @@ const api = new TikTokAPI(params, { signURL });
 ### Instance methods
 
 * [.loginWithEmail(email, password)](#loginwithemailemail-password)
+* [.loginWithUsername(username, password)](#loginwithusernameusername-password)
 * [.getUser(id)](#getuserid)
 * [.searchUsers(params)](#searchusersparams)
 * [.getQRCode(id, [schemaType])](#getqrcodeid-schematype)
@@ -83,6 +84,23 @@ api.loginWithEmail('<email>', '<password>')
 
 // Outputs:
 // { email: '<email>', session_key: '123456', user_id: '123456', ... }
+
+```
+
+See the [login types](src/types/login.d.ts) for the response data.
+
+#### .loginWithUsername(username, password)
+
+Authenticates you with the API and stores your session data in a cookie jar.
+Subsequent requests will include these cookies.
+
+```javascript
+api.loginWithUsername('<username>', '<password>')
+  .then(res => console.log(res.data))
+  .catch(console.log)
+
+// Outputs:
+// { username: '<email>', session_key: '123456', user_id: '123456', ... }
 
 ```
 

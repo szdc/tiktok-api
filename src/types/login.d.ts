@@ -1,27 +1,27 @@
 export interface LoginRequest {
   /** Unsure, but looks to be hard-coded to 1 */
-  mix_mode: number;
+  mix_mode?: number;
 
   /** The unique username ("musername") of the user */
-  username: string;
+  username?: string;
 
   /** The email address associated with the user account */
-  email: string;
+  email?: string;
 
   /** The mobile number associated with the user account */
-  mobile: string;
+  mobile?: string;
 
   /** ??? */
-  account: string;
+  account?: string;
 
   /** The password to the user account */
-  password: string;
+  password?: string;
 
   /** The captcha answer - only required if a captcha was shown */
-  captcha: string;
+  captcha?: string;
 
   /** Hard-coded to "normal" */
-  app_type: string;
+  app_type?: string;
 }
 
 export interface LoginResponse {
