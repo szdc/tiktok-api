@@ -19,9 +19,6 @@ export interface LoginRequest {
 
   /** The captcha answer - only required if a captcha was shown */
   captcha?: string;
-
-  /** Hard-coded to "normal" */
-  app_type?: string;
 }
 
 export interface LoginResponse {
