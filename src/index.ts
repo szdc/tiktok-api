@@ -420,6 +420,12 @@ export default class TikTokAPI {
     })
 
   /**
+   * Determines if you are allowed to start a live stream.  Typically you need 1,000 followers.
+   */
+  canStartLiveStream = () =>
+    this.request.get<API.CanStartLiveStreamResponse | API.BaseResponseData>('aweme/v1/live/podcast/')
+
+  /**
    * Transform using JSONBig to store big numbers accurately (e.g. user IDs) as strings.
    *
    * @param {any} data

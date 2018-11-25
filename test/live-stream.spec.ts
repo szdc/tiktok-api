@@ -2,7 +2,12 @@ import MockAdapter from 'axios-mock-adapter';
 import { assert } from 'chai';
 import { describe, it } from 'mocha';
 
-import TikTokAPI, { BaseResponseData, CommonUserDetails, JoinLiveStreamResponse } from '../src';
+import TikTokAPI, {
+  BaseResponseData,
+  CanStartLiveStreamResponse,
+  CommonUserDetails,
+  JoinLiveStreamResponse,
+} from '../src';
 import {
   loadTestData,
   mockConfig,
@@ -58,6 +63,26 @@ describe('#leaveLiveStream()', () => {
       extra: {
         now: 1000000000000,
       },
+      status_code: 0,
+    };
+    assert.deepStrictEqual(res.data, expected);
+  });
+});
+
+describe('#canStartLiveStream()', () => {
+  it('a successful response should match the interface', async () => {
+    const api = new TikTokAPI(mockParams, mockConfig);
+    const mock = new MockAdapter(api.request);
+    mock
+      .onGet(new RegExp('aweme/v1/live/podcast/\?.*'))
+      .reply(200, loadTestData('canStartLiveStream.json'), {});
+
+    const res = await api.canStartLiveStream();
+    const expected: CanStartLiveStreamResponse = {
+      extra: {
+        now: 1000000000000,
+      },
+      can_be_live_podcast: true,
       status_code: 0,
     };
     assert.deepStrictEqual(res.data, expected);

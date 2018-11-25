@@ -11,6 +11,11 @@ export interface JoinLiveStreamResponse extends BaseResponseData {
   room: LiveStream;
 }
 
+export interface CanStartLiveStreamResponse extends BaseResponseData {
+  /** True if your account can start a live stream */
+  can_be_live_podcast: boolean;
+}
+
 export interface LiveStream {
   /** The timestamp in seconds when the stream was created */
   create_time: number;
