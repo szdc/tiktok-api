@@ -72,6 +72,10 @@ const api = new TikTokAPI(params, { signURL });
 * [.joinLiveStream(id)](#joinlivestreamid)
 * [.leaveLiveStream(id)](#leavelivestreamid)
 * [.canStartLiveStream()](#canstartlivestream)
+* [.startLiveStream(title, [contactsAuthorized])](#startlivestreamtitle-contactsauthorized)
+* [.endLiveStream(roomId, streamId)](#endlivestreamroomid-streamid)
+* [.createLiveStreamRoom(title, [contactsAuthorized])](#createlivestreamroomtitle-contactsauthorized)
+* [.updateLiveStreamStatus(params)](#updatelivestreamstatusparams)
 
 #### .loginWithEmail(email, password)
 
@@ -467,7 +471,7 @@ api.joinLiveStream('<room_id>')
 
 ```
 
-See the [live stream types](src/types/live-stream.d.ts) for the complete request/response objects.
+See the [live stream types](src/types/live-stream.d.ts) for the response data.
 
 #### .leaveLiveStream(id)
 
@@ -483,8 +487,6 @@ api.leaveLiveStream('<room_id>')
 
 ```
 
-See the [live stream types](src/types/live-stream.d.ts) for the complete request/response objects.
-
 #### .canStartLiveStream()
 
 Determines if the current user is allowed to start a live stream.
@@ -496,6 +498,86 @@ api.canStartLiveStream()
 
 // Outputs:
 // true
+
+```
+
+See the [live stream types](src/types/live-stream.d.ts) for the response data.
+
+#### .startLiveStream(title, [contactsAuthorized])
+
+Starts a live stream by calling [`createLiveStreamRoom`](#createlivestreamroomtitle-contactsauthorized)
+then [`updateLiveStreamStatus`](#updatelivestreamstatusparams).
+
+Keep note of the `room_id` and `stream_id` properties because you will need them to end the live stream.
+
+The `rtmp_push_url` value can be used with streaming applications such as OBS.
+
+```javascript
+api.startLiveStream('title')
+  .then(res => console.log(res.data.room))
+  .catch(console.log);
+
+// Outputs:
+// { create_time: 1000000000, owner: {...}, stream_url: {...}, title: 'Example', user_count: 1000, ... }
+
+```
+
+See the [live stream types](src/types/live-stream.d.ts) for the response data.
+
+#### .endLiveStream(roomId, streamId)
+
+Ends a live stream.
+
+You **must** call this method to so you are no longer marked as "live" in the app.
+
+```javascript
+api.endLiveStream('<room_id>', '<stream_id>')
+  .then(res => console.log(res.data.status_code))
+  .catch(console.log);
+
+// Outputs:
+// 0
+
+```
+
+#### .createLiveStreamRoom(title, [contactsAuthorized])
+
+Creates a room to host a live stream.
+
+The `rtmp_push_url` value can be used with streaming applications such as OBS.
+
+**Note:** This method only creates the room for the live stream.  You'll need to call
+[`updateLiveStreamStatus`](#updatelivestreamstatusparams) to mark the stream as started.
+See [`startLiveStream`](#startlivestreamtitle-contactsauthorized) for a helper method that makes these calls for you.
+
+```javascript
+api.startLiveStream('title')
+  .then(res => console.log(res.data.room))
+  .catch(console.log);
+
+// Outputs:
+// { create_time: 1000000000, owner: {...}, stream_url: {...}, title: 'Example', user_count: 1000, ... }
+
+```
+
+See the [live stream types](src/types/live-stream.d.ts) for the response data.
+
+#### .updateLiveStreamStatus(params)
+
+Updates the status of a live stream.
+
+```javascript
+api.updateLiveStreamStatus({
+  room_id: '<room_id>',
+  stream_id: '<stream_id>',
+  status: LiveStreamStatus.Ended,
+  reason_no: LiveStreamStatusChangedReason.InitiatedByUser,
+})
+  .then(res => console.log(res.data.status_code))
+  .catch(console.log);
+
+// Outputs:
+// 0
 
 ```
 
