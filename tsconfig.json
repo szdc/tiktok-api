@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "allowSyntheticDefaultImports": false,
+    "baseUrl": "./lib",
     "declaration": true,
     "experimentalDecorators": true,
     "lib": ["es6"],
