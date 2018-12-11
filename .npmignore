@@ -11,11 +11,12 @@ node_modules/
 .nyc_output/
 
 # Project files
-/examples/
+/scripts/
 /src/
-.travis.yml
 .editorconfig
 .gitignore
+.markdownlint.json
+.travis.yml
 package-lock.json
 tsconfig.json
 tslint.json
