@@ -52,6 +52,7 @@ const api = new TikTokAPI(params, { signURL });
 * [.getUser(id)](#getuserid)
 * [.searchUsers(params)](#searchusersparams)
 * [.getQRCode(id, [schemaType])](#getqrcodeid-schematype)
+* [.getPost(id)](#getpostid)
 * [.listPosts(params)](#listpostsparams)
 * [.listFollowers(params)](#listfollowersparams)
 * [.listFollowing(params)](#listfollowingparams)
@@ -162,6 +163,22 @@ api.getQRCode('<user_id>')
 ```
 
 See the [QR code types](src/types/qr-code.d.ts) for the complete request/response objects.
+
+#### .getPost(id)
+
+Gets a post.
+
+```javascript
+api.getPost('<user_id>')
+  .then(res => console.log(res.data.aweme_detail))
+  .catch(console.log);
+
+// Outputs:
+// { author: {...}, aweme_id: '999', desc: 'description', music: {...}, statistics: {...}, video: {...}, ... }
+
+```
+
+See the [post types](src/types/post.d.ts) for the complete response object.
 
 #### .listPosts(params)
 

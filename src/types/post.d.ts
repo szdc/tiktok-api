@@ -1,5 +1,6 @@
 import { CommonUserDetails } from './user';
 import {
+  BaseResponseData,
   CursorOffsetRequestParams,
   CursorOffsetResponseParams,
   ListRequestParams,
@@ -7,6 +8,10 @@ import {
 } from './request';
 import { MusicTrack } from './music';
 import { Video } from './video';
+
+export interface GetPostResponse extends BaseResponseData {
+  aweme_detail: Post;
+}
 
 export interface ListPostsRequest extends ListRequestParams, CursorOffsetRequestParams {
   /** The id of the user whose posts to retrieve */
