@@ -158,6 +158,19 @@ export default class TikTokAPI {
     )
 
   /**
+   * Gets a post.
+   *
+   * @param {string} postId
+   * @returns {AxiosPromise<GetPostResponse>}
+   */
+  getPost = (postId: string) =>
+    this.request.get<API.GetPostResponse | API.BaseResponseData>('aweme/v1/aweme/detail/', {
+      params: {
+        aweme_id: postId,
+      },
+    })
+
+  /**
    * Lists a user's posts.
    *
    * @param {ListPostsRequest} params
