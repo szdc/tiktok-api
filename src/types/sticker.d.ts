@@ -1,7 +1,24 @@
 import {
   BaseResponseData,
+  CountOffsetParams,
+  ListRequestParams,
+  ListResponseData,
   Media,
 } from './request';
+import { Post } from './post';
+
+export interface ListPostsByStickerRequest extends ListRequestParams, CountOffsetParams {
+  /** The ID of the sticker */
+  sticker_id: string;
+}
+
+export interface ListPostsByStickerResponse extends ListResponseData, CountOffsetParams {
+  /** A list of posts using the sticker */
+  aweme_list: Post[];
+
+  /** Currently empty */
+  stickers: any[];
+}
 
 export interface GetStickersRequest {
   /** A list of sticker ids to get information about */

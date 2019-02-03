@@ -2,7 +2,11 @@ import MockAdapter from 'axios-mock-adapter';
 import { assert } from 'chai';
 import { describe, it } from 'mocha';
 
-import TikTokAPI, { GetStickersResponse } from '../src';
+import TikTokAPI, {
+  GetStickersResponse,
+  ListPostsByStickerRequest,
+  ListPostsByStickerResponse,
+} from '../src';
 import {
   loadTestData,
   mockConfig,
@@ -99,6 +103,34 @@ describe('#getStickers()', () => {
         },
       ],
       status_code: 0,
+    };
+    assert.deepStrictEqual(res.data, expected);
+  });
+});
+
+describe('#listPostsBySticker()', () => {
+  it('a successful response should match the interface', async () => {
+    const api = new TikTokAPI(mockParams, mockConfig);
+    const mock = new MockAdapter(api.request);
+
+    mock
+      .onGet(new RegExp('aweme/v1/sticker/aweme/\?.*'))
+      .reply(200, loadTestData('listPostsBySticker.json'), {});
+
+    const res = await api.listPostsBySticker({
+      cursor: 0,
+      count: 20,
+      sticker_id: '100000',
+    } as ListPostsByStickerRequest);
+    const expected: ListPostsByStickerResponse = {
+      extra: {
+        now: 1000000000000,
+      },
+      aweme_list: [],
+      cursor: 20,
+      has_more: 1,
+      status_code: 0,
+      stickers: [],
     };
     assert.deepStrictEqual(res.data, expected);
   });

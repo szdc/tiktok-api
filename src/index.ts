@@ -420,11 +420,22 @@ export default class TikTokAPI {
    *
    * @param stickerIds
    */
-  getStickers = (stickerIds: string[]) => this.request.get<API.GetStickersResponse>('aweme/v1/sticker/detail/', {
-    params: <API.GetStickersRequest>{
-      sticker_ids: stickerIds.join(','),
-    },
-  })
+  getStickers = (stickerIds: string[]) =>
+    this.request.get<API.GetStickersResponse | API.BaseResponseData>('aweme/v1/sticker/detail/', {
+      params: <API.GetStickersRequest>{
+        sticker_ids: stickerIds.join(','),
+      },
+    })
+
+  /**
+   * Lists posts that use a sticker/effect.
+   *
+   * @param params
+   */
+  listPostsBySticker = (params: API.ListPostsByStickerRequest) =>
+    this.request.get<API.ListPostsByStickerResponse | API.BaseResponseData>('aweme/v1/sticker/aweme/', {
+      params: withDefaultListParams(params),
+    })
 
   /**
    * Joins a live stream.
