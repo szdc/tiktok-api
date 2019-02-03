@@ -1,0 +1,25 @@
+{
+  "extra": {
+    "now": 1000000000000
+  },
+  "sticker_infos": [
+    {
+      "children": [],
+      "desc": "",
+      "effect_id": "100000",
+      "icon_url": {
+        "url_list": [
+          "http://sf-tk-sg.ibytedtos.com/obj/ies.fe.effect.alisg/111111"
+        ]
+      },
+      "id": "100000",
+      "is_favorite": false,
+      "name": "sticker1",
+      "owner_id": "",
+      "owner_nickname": "Effect Assistant",
+      "tags": [],
+      "user_count": 10000
+    }
+  ],
+  "status_code": 0
+}
