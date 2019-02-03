@@ -72,6 +72,7 @@ const api = new TikTokAPI(params, { signURL });
 * [.listFollowingFeed([params])](#listfollowingfeedparams)
 * [.getSticker(id)](#getstickerid)
 * [.getStickers([ids])](#getstickersids)
+* [.listPostsBySticker(params)](#listpostsbystickerparams)
 * [.joinLiveStream(id)](#joinlivestreamid)
 * [.leaveLiveStream(id)](#leavelivestreamid)
 * [.canStartLiveStream()](#canstartlivestream)
@@ -505,6 +506,25 @@ api.getStickers(['<sticker_id>', '<sticker_id>'])
 ```
 
 See the [sticker types](src/types/sticker.d.ts) for the complete response object.
+
+#### .listPostsBySticker(params)
+
+Lists posts that use a sticker/effect.
+
+```javascript
+api.listPostsBySticker({
+  count: 20,
+  cursor: 0,
+  sticker_id: '100000',
+})
+  .then(res => console.log(res.data.aweme_list))
+  .catch(console.log);
+
+// Outputs:
+// [{ author: {...}, aweme_id: '999', desc: 'description', music: {...}, statistics: {...}, video: {...} }, ...]
+```
+
+See the [sticker types](src/types/sticker.d.ts) for the complete request/response object.
 
 #### .joinLiveStream(id)
 
