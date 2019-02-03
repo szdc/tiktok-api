@@ -409,6 +409,24 @@ export default class TikTokAPI {
     })
 
   /**
+   * Gets information about a sticker/effect.
+   *
+   * @param stickerId
+   */
+  getSticker = (stickerId: string) => this.getStickers([stickerId]);
+
+  /**
+   * Gets information about many stickers/effects.
+   *
+   * @param stickerIds
+   */
+  getStickers = (stickerIds: string[]) => this.request.get<API.GetStickersResponse>('aweme/v1/sticker/detail/', {
+    params: <API.GetStickersRequest>{
+      sticker_ids: stickerIds.join(','),
+    },
+  })
+
+  /**
    * Joins a live stream.
    *
    * @param id

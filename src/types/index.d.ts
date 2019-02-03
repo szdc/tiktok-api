@@ -13,6 +13,7 @@ export * from './post';
 export * from './qr-code';
 export * from './request';
 export * from './search';
+export * from './sticker';
 export * from './tag';
 export * from './user';
 export * from './video';

@@ -70,6 +70,8 @@ const api = new TikTokAPI(params, { signURL });
 * [.listPostsInHashtag(params)](#listpostsinhashtagparams)
 * [.listForYouFeed([params])](#listforyoufeedparams)
 * [.listFollowingFeed([params])](#listfollowingfeedparams)
+* [.getSticker(id)](#getstickerid)
+* [.getStickers([ids])](#getstickersids)
 * [.joinLiveStream(id)](#joinlivestreamid)
 * [.leaveLiveStream(id)](#leavelivestreamid)
 * [.canStartLiveStream()](#canstartlivestream)
@@ -471,6 +473,38 @@ api.listFollowingFeed()
 ```
 
 See the [feed types](src/types/feed.d.ts) for the complete request/response objects.
+
+#### .getSticker(id)
+
+Gets information about a sticker/effect.
+
+```javascript
+api.getSticker('<sticker_id>')
+  .then(res => console.log(res.data.sticker_infos))
+  .catch(console.log);
+
+// Outputs:
+// [{ id: '100000', name: 'cloned', owner_nickname: 'Effect Assistant', ...}]
+
+```
+
+See the [sticker types](src/types/sticker.d.ts) for the complete response object.
+
+#### .getStickers([ids])
+
+Gets information about many stickers/effects.
+
+```javascript
+api.getStickers(['<sticker_id>', '<sticker_id>'])
+  .then(res => console.log(res.data.sticker_infos))
+  .catch(console.log);
+
+// Outputs:
+// [{ id: '100000', name: 'cloned', owner_nickname: 'Effect Assistant', ...}, ...]
+
+```
+
+See the [sticker types](src/types/sticker.d.ts) for the complete response object.
 
 #### .joinLiveStream(id)
 
