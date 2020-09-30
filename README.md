@@ -1,4 +1,4 @@
-# Unofficial TikTok/Musical.ly API
+# Unofficial TikTok APIs
 
 <!-- markdownlint-disable MD013 -->
 [![npm version](https://img.shields.io/npm/v/tiktok-api.svg?style=flat)](https://www.npmjs.com/package/tiktok-api) [![Coverage Status](https://img.shields.io/coveralls/szdc/tiktok-api/master.svg?style=flat)](https://coveralls.io/github/szdc/tiktok-api?branch=master) [![Build Status](https://travis-ci.com/szdc/tiktok-api.svg?branch=master)](https://travis-ci.com/szdc/tiktok-api) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/szdc/tiktok-api/issues) ![Supported TikTok version](https://img.shields.io/badge/TikTok-9.1.0-blue.svg)
@@ -661,4 +661,4 @@ See the [live stream types](src/types/live-stream.d.ts) for the complete request
 ## Legal
 
 This code is in no way affiliated with, authorized, maintained, sponsored or endorsed by TikTok
-or any of its affiliates or subsidiaries. This is an independent and unofficial API. Use at your own risk.
+or any of its affiliates or subsidiaries. This is an independent and unofficial API. Use at your own risk this is only For educational propose
